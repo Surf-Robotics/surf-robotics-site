@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Blog | Surf Robotics</title>
+<link rel="stylesheet" href="style.css">
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:ital,wght@0,300;0,400;0,500;0,700;1,300&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+</head>
+<body class="page-inner">
+
+<nav class="nav">
+  <a href="index.html" class="nav-logo"><span class="logo-wave">~</span> SURF ROBOTICS</a>
+  <button class="nav-toggle" id="navToggle" aria-label="Toggle menu"><span></span><span></span><span></span></button>
+  <ul class="nav-links" id="navLinks">
+    <li><a href="index.html">Home</a></li>
+    <li><a href="about.html">About Us</a></li>
+    <li><a href="season.html">2026–27 Season</a></li>
+    <li><a href="outreach.html">Outreach & Sponsors</a></li>
+    <li><a href="blog.html" class="active">Blog</a></li>
+  </ul>
+</nav>
+
+<header class="page-hero">
+  <div class="page-hero-bg"></div>
+  <div class="container">
+    <p class="section-eyebrow">Updates & Stories</p>
+    <h1 class="page-hero-title">The Blog</h1>
+  </div>
+</header>
+
+<main>
+
+<!-- FILTER BAR -->
+<section class="blog-filter-bar">
+  <div class="container">
+    <div class="filter-btns">
+      <button class="filter-btn active" data-filter="all">All</button>
+      <button class="filter-btn" data-filter="build">Build Season</button>
+      <button class="filter-btn" data-filter="competition">Competition</button>
+      <button class="filter-btn" data-filter="outreach">Outreach</button>
+      <button class="filter-btn" data-filter="tech">Tech Deep Dive</button>
+      <button class="filter-btn" data-filter="team">Team Life</button>
+    </div>
+  </div>
+</section>
+
+<!-- FEATURED POST -->
+<section class="section blog-featured">
+  <div class="container">
+    <div class="featured-post" data-category="build">
+      <div class="featured-post-text">
+        <span class="blog-tag">Build Season</span>
+        <h2>Finalizing Mk IV's Drivetrain: Why We Switched to Mecanum</h2>
+        <p class="featured-excerpt">After three seasons on tank drive, we made the leap to mecanum wheels for 2026-27. Here's everything that went into that decision — the testing, the tradeoffs, and the one Saturday we almost gave up and went back.</p>
+        <div class="post-meta">
+          <span>By James Kim & Maya Rodriguez</span>
+          <span>May 2, 2026</span>
+          <span>8 min read</span>
+        </div>
+        <button class="btn btn-primary read-more-btn" data-post="post-mecanum">Read Post →</button>
+      </div>
+      <div class="featured-post-visual">
+        <div class="post-visual-block">
+          <div class="pvb-grid">
+            <div class="pvb-cell c1"></div>
+            <div class="pvb-cell c2"></div>
+            <div class="pvb-cell c3"></div>
+            <div class="pvb-cell c4"></div>
+          </div>
+          <p>Mecanum Wheel Configuration</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- POST GRID -->
+<section class="section">
+  <div class="container">
+    <div class="blog-grid" id="blogGrid">
+
+      <article class="blog-card" data-category="outreach">
+        <div class="blog-card-top">
+          <span class="blog-tag">Outreach</span>
+          <span class="blog-date">Apr 18, 2026</span>
+        </div>
+        <h3>Coastal Kids STEM Day 2026 Recap</h3>
+        <p>Over 80 elementary students got hands-on with our demo robot at this year's Coastal Kids STEM Day event at Pacific Shores Elementary.</p>
+        <div class="post-meta-sm">
+          <span>Sofia Nguyen</span>
+          <span>4 min read</span>
+        </div>
+        <button class="read-more-btn btn-link" data-post="post-stemday">Read →</button>
+      </article>
+
+      <article class="blog-card" data-category="competition">
+        <div class="blog-card-top">
+          <span class="blog-tag">Competition</span>
+          <span class="blog-date">Mar 30, 2026</span>
+        </div>
+        <h3>Regional Qualifier #2 Results — Bay Area Open</h3>
+        <p>We placed 4th overall and won the Innovate Award. Here's a full match-by-match breakdown and what we learned before heading to State.</p>
+        <div class="post-meta-sm">
+          <span>Team Surf</span>
+          <span>6 min read</span>
+        </div>
+        <button class="read-more-btn btn-link" data-post="post-q2">Read →</button>
+      </article>
+
+      <article class="blog-card" data-category="tech">
+        <div class="blog-card-top">
+          <span class="blog-tag">Tech Deep Dive</span>
+          <span class="blog-date">Mar 12, 2026</span>
+        </div>
+        <h3>How We Built Our AprilTag Vision Pipeline</h3>
+        <p>A deep dive into the OpenCV pipeline Priya built for field localization, including code snippets, calibration tips, and lessons from competition.</p>
+        <div class="post-meta-sm">
+          <span>Priya Mehta</span>
+          <span>12 min read</span>
+        </div>
+        <button class="read-more-btn btn-link" data-post="post-vision">Read →</button>
+      </article>
+
+      <article class="blog-card" data-category="competition">
+        <div class="blog-card-top">
+          <span class="blog-tag">Competition</span>
+          <span class="blog-date">Feb 22, 2026</span>
+        </div>
+        <h3>Qualifier #1 — Coastal League: We Got a Think Award!</h3>
+        <p>Our first competition of the season. We ranked 3rd and brought home the Think Award. Here's what went well and what we're fixing.</p>
+        <div class="post-meta-sm">
+          <span>Team Surf</span>
+          <span>5 min read</span>
+        </div>
+        <button class="read-more-btn btn-link" data-post="post-q1">Read →</button>
+      </article>
+
+      <article class="blog-card" data-category="build">
+        <div class="blog-card-top">
+          <span class="blog-tag">Build Season</span>
+          <span class="blog-date">Jan 28, 2026</span>
+        </div>
+        <h3>Linear Slides vs. Arm: Making the Big Decision</h3>
+        <p>For weeks, the team was split between a linear slide system and a rotating arm. Here's how we ran the numbers and made the call.</p>
+        <div class="post-meta-sm">
+          <span>Maya Rodriguez & Lily Torres</span>
+          <span>7 min read</span>
+        </div>
+        <button class="read-more-btn btn-link" data-post="post-slides">Read →</button>
+      </article>
+
+      <article class="blog-card" data-category="team">
+        <div class="blog-card-top">
+          <span class="blog-tag">Team Life</span>
+          <span class="blog-date">Jan 10, 2026</span>
+        </div>
+        <h3>Game Kickoff Day: 24 Hours of Controlled Chaos</h3>
+        <p>Game reveal was a Friday. By Sunday night, we had a strategy. Here's what our kickoff weekend looked like from the inside.</p>
+        <div class="post-meta-sm">
+          <span>Dylan Walsh</span>
+          <span>5 min read</span>
+        </div>
+        <button class="read-more-btn btn-link" data-post="post-kickoff">Read →</button>
+      </article>
+
+      <article class="blog-card" data-category="outreach">
+        <div class="blog-card-top">
+          <span class="blog-tag">Outreach</span>
+          <span class="blog-date">Dec 5, 2025</span>
+        </div>
+        <h3>Mentoring Our First FLL Team — What We Learned</h3>
+        <p>This year we took on a local FLL team for the first time. Turns out teaching someone else is the best way to understand something yourself.</p>
+        <div class="post-meta-sm">
+          <span>Sofia Nguyen</span>
+          <span>6 min read</span>
+        </div>
+        <button class="read-more-btn btn-link" data-post="post-fll">Read →</button>
+      </article>
+
+      <article class="blog-card" data-category="tech">
+        <div class="blog-card-top">
+          <span class="blog-tag">Tech Deep Dive</span>
+          <span class="blog-date">Nov 18, 2025</span>
+        </div>
+        <h3>Road Runner 101: Getting Smooth Autonomous Paths</h3>
+        <p>A beginner-friendly walkthrough of how we integrated Road Runner into our autonomous routine, including our custom trajectory follower setup.</p>
+        <div class="post-meta-sm">
+          <span>James Kim</span>
+          <span>10 min read</span>
+        </div>
+        <button class="read-more-btn btn-link" data-post="post-rr">Read →</button>
+      </article>
+
+      <article class="blog-card" data-category="team">
+        <div class="blog-card-top">
+          <span class="blog-tag">Team Life</span>
+          <span class="blog-date">Oct 30, 2025</span>
+        </div>
+        <h3>Welcome to the Team, Class of 2026!</h3>
+        <p>We welcomed four new members this season. Here they introduce themselves and share why they joined Surf Robotics.</p>
+        <div class="post-meta-sm">
+          <span>Team Surf</span>
+          <span>3 min read</span>
+        </div>
+        <button class="read-more-btn btn-link" data-post="post-welcome">Read →</button>
+      </article>
+
+    </div>
+  </div>
+</section>
+
+<!-- POST MODAL -->
+<div class="post-modal" id="postModal">
+  <div class="modal-overlay" id="modalOverlay"></div>
+  <div class="modal-content" id="modalContent">
+    <button class="modal-close" id="modalClose">✕</button>
+    <div class="modal-body" id="modalBody"></div>
+  </div>
+</div>
+
+</main>
+
+<footer class="footer">
+  <div class="container footer-inner">
+    <div class="footer-brand"><span class="logo-wave">~</span> SURF ROBOTICS<p>FTC Team · Coastal California</p></div>
+    <nav class="footer-nav">
+      <a href="about.html">About</a><a href="season.html">Season</a><a href="outreach.html">Outreach</a><a href="blog.html">Blog</a>
+    </nav>
+    <p class="footer-copy">© 2026 Surf Robotics. All rights reserved.</p>
+  </div>
+</footer>
+
+<script src="main.js"></script>
+<script src="blog.js"></script>
+</body>
+</html>
