@@ -33,12 +33,12 @@ const posts = {
   'post-mecanum': {
     tag: 'Build Season',
     date: 'May 2, 2026',
-    author: 'James Kim & Maya Rodriguez',
-    readTime: '8 min read',
-    title: "Finalizing Mk IV's Drivetrain: Why We Switched to Mecanum",
+    author: 'SURF Team',
+    readTime: '1 min read',
+    title: "Finalizing our name, why we chose SURF.",
     content: `
-      <p>For three seasons, Surf Robotics ran a reliable 4-wheel tank drive. It was simple, powerful, and we knew how to tune it. So why did we blow it all up for Mecanum this year?</p>
-      <h4>The Problem With Tank Drive in This Year's Game</h4>
+      <p>Why did we choose SURF?</p>
+      <h4>The Problem With Other Names</h4>
       <p>The 2026-27 game field requires robots to navigate around a center structure from multiple approach angles, pick up game pieces scattered across the field, and deliver them to goals on both sides. With tank drive, every repositioning move costs precious seconds — you have to point-turn, re-align, re-engage.</p>
       <p>After our strategy sprint in September, we calculated that a mecanum drive would save us approximately 1.2–1.8 seconds per scoring cycle. Over a 2:30 teleop period, that's potentially 4–6 additional cycles. That's enormous.</p>
       <h4>The Tradeoffs We Had to Accept</h4>
@@ -54,9 +54,9 @@ const posts = {
   'post-stemday': {
     tag: 'Outreach',
     date: 'Apr 18, 2026',
-    author: 'Sofia Nguyen',
+    author: 'SURF Team',
     readTime: '4 min read',
-    title: 'Coastal Kids STEM Day 2026 Recap',
+    title: 'Second Meeting Recap',
     content: `
       <p>This April, we hosted our third annual Coastal Kids STEM Day at Pacific Shores Elementary — and it was the biggest one yet. Over 80 third and fourth graders rotated through six activity stations across a full school day.</p>
       <h4>What We Set Up</h4>
