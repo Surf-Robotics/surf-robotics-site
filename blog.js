@@ -5,20 +5,6 @@ const filterBtns = document.querySelectorAll('.filter-btn');
 const blogCards = document.querySelectorAll('.blog-grid .blog-card');
 const featuredPost = document.querySelector('.featured-post');
 
-filterBtns.forEach(btn => {
-  btn.addEventListener('click', () => {
-    filterBtns.forEach(b => b.classList.remove('active'));
-    btn.classList.add('active');
-    const filter = btn.dataset.filter;
-
-    blogCards.forEach(card => {
-      const cat = card.dataset.category;
-      if (filter === 'all' || cat === filter) {
-        card.classList.remove('hidden');
-      } else {
-        card.classList.add('hidden');
-      }
-    });
 
     // Show/hide featured post
     if (featuredPost) {
@@ -28,7 +14,7 @@ filterBtns.forEach(btn => {
   });
 });
 
-// --- POST CONTENT ---
+
 const posts = {
   'post-mecanum': {
     tag: 'Build Season',
@@ -36,14 +22,11 @@ const posts = {
     author: 'SURF Team',
     readTime: '1 min read',
     title: "Finalizing our name, why we chose SURF.",
-    content: `
-      <p>Why did we choose SURF?</p>
-      <h4>The Problem With Other Names</h4>
-      <p>(to continue)
+
   },
   'post-this is just a template to use for actual stuff': {
     tag: 'Template',
-    date: 'Date: Idk',
+    date: 'Date: Sample',
     author: 'SURF Team',
     readTime: 'quick read',
     title: 'Just a template',
