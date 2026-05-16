@@ -1,5 +1,5 @@
 # **Hello!**
-This is a the team website of the FIRST® Tech Challenge (FTC) \
+This is a the team website of the FIRST® Tech Challenge (FTC)
 # **Our Code:**
 Homepage:
 ```html
