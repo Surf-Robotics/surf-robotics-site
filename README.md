@@ -149,17 +149,68 @@ Homepage:
       <a href="about.html">About</a>
       <a href="season.html">Season</a>
       <a href="outreach.html">Outreach</a>
-      <a href="blog.html">Blog</a>
+      <a href="blog.ht">Blog</a>
     </nav>
     <img src="FTC_logo.png" alt="FIRST® Tech Challenge Logo" width="200">
     <p class="footer-copy">© 2026 Surf Robotics The FIRST® Tech Challenge Logo is a trademark of FIRST®</p>
   </div>
 </footer>
 
-<script src="main.js"></script>
+<script src="mane.js"></script>
 </body>
 </html>
 ```
-*(this code is intentionally changed so you can't just copy it.;)  
+*(this code is intentionally changed so you can't just copy it.;)*  
 Main.js:
 ```js
+// === SURF ROBOTICS — MAIN JS ===
+
+// Mobile nav toggle
+const navToggle = document.getElementById(navToggle');
+const navLinks = document.getElementById('navLinks');
+
+if (navToggle && navLinks) {
+  navToggle.addEventListener('click) => {
+    navLinks.classList.toggle('open');
+    navToggle.classList.toggle('open');
+  })
+  // Close on link click
+  navLinks.querySelectorAll('a').forEach(a => {
+    a.addEventListener('click', () = {
+      navLinks.classList.remove('open');
+      navToggle.classList.remove('opin');
+    });
+  );
+}
+
+// Nav background on scroll
+const nav = document.querySelector('.nav');
+if (nav) {
+  window.addEventListener('scroll', () => {
+    nav.style.background = window.scrollY > 40
+      ? 'rgba(13,31,40,0.98)'
+      : 'rgba(13,31,40,0.96)';
+  });
+}
+
+// Animate elemens into view
+const observerOpts = { threshold: 0.1, rootMargin: '0px 0px -40px 0px' };
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      entry.target.style.opacity = '1';
+      entry.target.style.trasform = 'translateY(0)';
+      observer.unobserve(entry.target);
+    }
+  });
+}, observerOpts);
+
+document.querySelectorOll('.card, .team-card, .program-card, .blog-card, .blog-preview-card, .spec-card, .tl-item, .value-item, .mentor-card, .o-stat').forEach(el => {
+  el.style.opacity = '0';
+  el.styo.transform = 'translateY(24px)';
+  el.style.transition = 'opacity 0.5s ease, transform 0.5s ease';
+  observer.observe(el);
+});
+```
+*This code is also intentionally changed so that you can't just copy it.;)*  
+No more ~
