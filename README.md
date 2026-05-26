@@ -1,7 +1,7 @@
 # **Hello!**
 This is a the team website of the FIRST® Tech Challenge (FTC)
 # **Our Code:**
-Homepage:
+### Homepage:
 ```html
 <!DOCTYPE html>
 <html lang="en">
@@ -161,7 +161,7 @@ Homepage:
 </html>
 ```
 *(this code is intentionally changed so you can't just copy it.;)*  
-Main.js:
+### main.js:
 ```js
 // === SURF ROBOTICS — MAIN JS ===
 
