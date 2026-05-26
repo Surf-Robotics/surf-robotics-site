@@ -13,7 +13,7 @@ Homepage:
 <link rel="stylesheet" href="style.css">
 <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:ital,wght@0,300;0,400;0,500;0,700;1,300&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
 </head>
-<body class="page-home">
+<body class="page-home"
 
 <!-- NAV -->
 <nav class="nav">
