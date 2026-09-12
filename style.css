@@ -1244,3 +1244,11 @@ img.responsive-media {
     border-radius: 14px;
   }
 }
+
+/*Surf Logo*/
+.nav-logo-image {
+  width: 36px;
+  height: 36px;
+  object-fit: contain;
+  display: block;
+}
