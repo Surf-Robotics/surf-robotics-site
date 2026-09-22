@@ -15,9 +15,104 @@
     href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:ital,wght@0,300;0,400;0,500;0,700;1,300&family=Space+Mono:wght@400;700&display=swap"
     rel="stylesheet"
   >
+
+  <style>
+    /* Password Gate Styles */
+    #password-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      background: #0f172a; /* Dark theme background matching design */
+      color: #ffffff;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      z-index: 9999;
+    }
+
+    .password-card {
+      background: #1e293b;
+      padding: 2.5rem;
+      border-radius: 12px;
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
+      text-align: center;
+      max-width: 400px;
+      width: 90%;
+      font-family: 'DM Sans', sans-serif;
+    }
+
+    .password-card h2 {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 2rem;
+      margin-bottom: 0.5rem;
+      letter-spacing: 1px;
+    }
+
+    .password-card p {
+      font-size: 0.9rem;
+      color: #94a3b8;
+      margin-bottom: 1.5rem;
+    }
+
+    .password-card input {
+      width: 100%;
+      padding: 0.75rem 1rem;
+      margin-bottom: 1rem;
+      border: 1px solid #334155;
+      border-radius: 6px;
+      background: #0f172a;
+      color: #fff;
+      font-size: 1rem;
+      box-sizing: border-box;
+      outline: none;
+    }
+
+    .password-card input:focus {
+      border-color: #38bdf8;
+    }
+
+    .password-card button {
+      width: 100%;
+      padding: 0.75rem;
+      background: #0284c7;
+      color: #ffffff;
+      border: none;
+      border-radius: 6px;
+      font-size: 1rem;
+      font-weight: bold;
+      cursor: pointer;
+      transition: background 0.2s;
+    }
+
+    .password-card button:hover {
+      background: #0369a1;
+    }
+
+    .error-msg {
+      color: #ef4444;
+      font-size: 0.85rem;
+      margin-top: 0.75rem;
+      display: none;
+    }
+  </style>
 </head>
 
 <body class="page-inner">
+
+  <!-- PASSWORD PROTECTED OVERLAY -->
+  <div id="password-overlay">
+    <div class="password-card">
+      <h2>Member Access</h2>
+      <p>Please enter the access code to view this page.</p>
+      <form id="password-form" onsubmit="checkPassword(event)">
+        <input type="password" id="password-input" placeholder="Enter Password" required autocomplete="off">
+        <button type="submit">Unlock</button>
+        <p id="error-msg" class="error-msg">Incorrect password. Please try again.</p>
+      </form>
+    </div>
+  </div>
 
   <!-- NAVIGATION -->
   <nav class="nav">
@@ -63,8 +158,6 @@
 
   <main>
 
-    
-
     <section class="section">
 
       <div class="container">
@@ -73,12 +166,7 @@
           Materials Form
         </h2>
 
-
-        <a href = "https://forms.gle/PRzGaCD5s3dtkx6S6">CLICK ME!</a>
-       
-
-       
-
+        <a href="https://forms.gle/PRzGaCD5s3dtkx6S6">CLICK ME!</a>
 
       </div>
 
@@ -97,7 +185,7 @@
         <p>
           Track parts, progress, etc.
         </p>
-        <a href = "https://docs.google.com/spreadsheets/d/1sfOlqnhsd861YVN8hmgj8G03ao3Aqj_NejMODsH6tm0/edit?gid=652018483#gid=652018483">CLICK ME!</a>
+        <a href="https://docs.google.com/spreadsheets/d/1sfOlqnhsd861YVN8hmgj8G03ao3Aqj_NejMODsH6tm0/edit?gid=652018483#gid=652018483">CLICK ME!</a>
 
         <figure
           style="
@@ -136,10 +224,7 @@
 
     </section>
 
-
-    
-
-   
+  </main>
 
 
   <!-- FOOTER -->
@@ -182,6 +267,32 @@
 
   <script src="main.js"></script>
   <script src="blog.js"></script>
+
+  <!-- PASSWORD SCRIPT -->
+  <script>
+    const TARGET_PASS = "abcd1234!";
+
+    // Check session on page load
+    window.addEventListener('DOMContentLoaded', () => {
+      if (sessionStorage.getItem('memberAuth') === 'true') {
+        document.getElementById('password-overlay').style.display = 'none';
+      }
+    });
+
+    function checkPassword(event) {
+      event.preventDefault();
+      const input = document.getElementById('password-input').value;
+      const errorMsg = document.getElementById('error-msg');
+
+      if (input === TARGET_PASS) {
+        sessionStorage.setItem('memberAuth', 'true');
+        document.getElementById('password-overlay').style.display = 'none';
+      } else {
+        errorMsg.style.display = 'block';
+        document.getElementById('password-input').value = '';
+      }
+    }
+  </script>
 
 </body>
 
