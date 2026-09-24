@@ -297,7 +297,7 @@
     async function checkPassword(event) {
       event.preventDefault();
       const inputtext = document.getElementById('password-input').value;
-      const input = await generateSha256(input);
+      const input = await generateSha256(inputtext);
       const errorMsg = document.getElementById('error-msg');
 
       if (input === TARGET_PASS) {
