@@ -271,7 +271,21 @@
 
   <!-- PASSWORD SCRIPT -->
   <script>
-    const TARGET_PASS = "abcd1234!";
+    async function generateSha256(codeString) {
+      // Encode the input string as UTF-8 bytes
+      const encoder = new TextEncoder();
+      const data = encoder.encode(codeString);
+  
+      // Compute the SHA-256 digest
+      const hashBuffer = await crypto.subtle.digest('SHA-256', data);
+  
+      // Convert the ArrayBuffer to a lowercase hex string
+      const hashArray = Array.from(new Uint8Array(hashBuffer));
+      const hashHex = hashArray.map(b => b.toString(16).padStart(2, '0')).join('');
+  
+      return hashHex
+    }
+    const TARGET_PASS = /*"abcd1234!"*/"f47c4b720cd560809b27592e4933f897170e7cfe999a3f80d04c7b2887aa8843";
 
     // Check session on page load
     window.addEventListener('DOMContentLoaded', () => {
@@ -282,7 +296,8 @@
 
     function checkPassword(event) {
       event.preventDefault();
-      const input = document.getElementById('password-input').value;
+      let input = document.getElementById('password-input').value;
+      input = generateSha256(input);
       const errorMsg = document.getElementById('error-msg');
 
       if (input === TARGET_PASS) {
