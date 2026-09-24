@@ -137,9 +137,9 @@
       <li><a href="about">About Us</a></li>
       <li><a href="season">2026–27 Season</a></li>
       <li><a href="outreach">Outreach & Sponsors</a></li>
-      <li><a href="robot" class="active">Robot</a></li>
+      <li><a href="robot">Robot</a></li>
       <li><a href="blog">Blog</a></li>
-      <li><a herf="team">Members only</a></li>
+      <li><a href="team" class="active">Members only</a></li>
     </ul>
 
   </nav>
@@ -281,7 +281,7 @@
   
       // Convert the ArrayBuffer to a lowercase hex string
       const hashArray = Array.from(new Uint8Array(hashBuffer));
-      const hashHex = hashArray.map(b => b.toString(10).padStart(2, '0')).join('');
+      const hashHex = hashArray.map(b => b.toString(16).padStart(2, '0')).join('');
   
       return hashHex
     }
@@ -294,10 +294,10 @@
       }
     });
 
-    function checkPassword(event) {
+    async function checkPassword(event) {
       event.preventDefault();
-      let input = document.getElementById('password-input').value;
-      input = generateSha256(input);
+      const inputtext = document.getElementById('password-input').value;
+      const input = await generateSha256(input);
       const errorMsg = document.getElementById('error-msg');
 
       if (input === TARGET_PASS) {
