@@ -151,12 +151,20 @@
     }
     
     function goBack() {
-      if (window.history.length > 1) {
-          window.history.back();
-      } else {
-        window.location.href = "/";
-      }
-    }
+  const previousPage = document.referrer;
+
+  // If the user came from another page on this site,
+  // return to that page.
+  if (
+    previousPage &&
+    previousPage !== window.location.href
+  ) {
+    window.location.href = previousPage;
+  } else {
+    // Fallback if they opened the login page directly
+    window.location.href = "/";
+  }
+}
 
       .password-card .back-button {
         margin-top: 12px;
