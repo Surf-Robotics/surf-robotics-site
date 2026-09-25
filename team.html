@@ -1,3 +1,4 @@
+```html
 <!DOCTYPE html>
 <html lang="en">
 
@@ -17,26 +18,27 @@
   >
 
   <style>
-    /* Password Gate Styles */
+    /* ================================
+       PASSWORD GATE
+       ================================ */
+
     #password-overlay {
       position: fixed;
       inset: 0;
-    
       width: 100%;
-      height: 100%;
       min-height: 100vh;
       min-height: 100dvh;
-    
+
       background: #0f172a;
       color: #ffffff;
-    
+
       display: flex;
       justify-content: center;
       align-items: center;
-    
+
       padding: 20px;
       box-sizing: border-box;
-    
+
       overflow-y: auto;
 
       z-index: 99999;
@@ -44,27 +46,42 @@
 
     body.login-locked {
       overflow: hidden;
-      position: fixed;
-      width: 100%;
       height: 100%;
     }
 
     .password-card {
       background: #1e293b;
-      padding: 2.5rem;
-      border-radius: 12px;
-      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
-      text-align: center;
+
+      width: min(400px, 100%);
       max-width: 400px;
-      width: 90%;
+
+      padding: 2.5rem;
+      box-sizing: border-box;
+
+      border-radius: 12px;
+
+      box-shadow:
+        0 10px 25px rgba(0, 0, 0, 0.3);
+
+      text-align: center;
+
       font-family: 'DM Sans', sans-serif;
     }
 
-    .password-card h2 {
+    .password-heading {
       font-family: 'Bebas Neue', sans-serif;
-      font-size: 2rem;
-      margin-bottom: 0.5rem;
-      letter-spacing: 1px;
+      font-size: 3rem;
+      letter-spacing: 3px;
+      margin: 0 0 0.25rem;
+      color: #ffffff;
+    }
+
+    .password-card h2 {
+      font-family: 'DM Sans', sans-serif;
+      font-size: 1.25rem;
+      margin: 0 0 0.75rem;
+      color: #94a3b8;
+      font-weight: 500;
     }
 
     .password-card p {
@@ -77,11 +94,15 @@
       width: 100%;
       padding: 0.75rem 1rem;
       margin-bottom: 1rem;
+
       border: 1px solid #334155;
       border-radius: 6px;
+
       background: #0f172a;
       color: #fff;
+
       font-size: 1rem;
+
       box-sizing: border-box;
       outline: none;
     }
@@ -93,13 +114,18 @@
     .password-card button {
       width: 100%;
       padding: 0.75rem;
+
       background: #0284c7;
       color: #ffffff;
+
       border: none;
       border-radius: 6px;
+
       font-size: 1rem;
       font-weight: bold;
+
       cursor: pointer;
+
       transition: background 0.2s;
     }
 
@@ -107,281 +133,306 @@
       background: #0369a1;
     }
 
-  .password-heading {
-    font-family: 'Bebas Neue', sans-serif;
-    font-size: 3rem;
-    letter-spacing: 3px;
-    margin: 0 0 0.25rem;
-    color: #ffffff;
-    }
-
-  .password-card h2 {
-    font-family: 'DM Sans', sans-serif;
-    font-size: 1.25rem;
-    margin: 0 0 0.75rem;
-    color: #94a3b8;
-    font-weight: 500;
-    }
-
-.error-msg {
-  color: #ff3333 !important;
-  font-size: 0.9rem;
-  font-weight: 700;
-  margin-top: 0.75rem;
-  margin-bottom: 0;
-  display: none;
-}
-
     .error-msg {
-      color: #ef4444;
-      font-size: 0.85rem;
-      margin-top: 0.75rem;
+      color: #ef4444 !important;
+      font-size: 0.85rem !important;
+      font-weight: 700;
+      margin-top: 0.75rem !important;
+      margin-bottom: 0 !important;
       display: none;
     }
 
-    /* Prevent page scrolling while login screen is active */
-body.login-locked {
-  overflow: hidden;
-  height: 100%;
-}
 
-/* Password overlay */
-#password-overlay {
-  position: fixed;
-  inset: 0;
+    /* ================================
+       MOBILE PASSWORD GATE
+       ================================ */
 
-  width: 100%;
-  min-height: 100vh;
-  min-height: 100dvh;
+    @media (max-width: 600px) {
 
-  background: #0f172a;
-  color: #ffffff;
+      #password-overlay {
+        min-height: 100vh;
+        min-height: 100dvh;
+        align-items: center;
+      }
 
-  display: flex;
-  justify-content: center;
-  align-items: center;
+      .password-card {
+        width: 100%;
+        max-width: none;
+        padding: 1.5rem;
+      }
 
-  padding: 20px;
-  box-sizing: border-box;
+      .password-heading {
+        font-size: 2.2rem;
+      }
 
-  overflow-y: auto;
+      .password-card h2 {
+        font-size: 1.1rem;
+      }
 
-  z-index: 99999;
-}
+      .password-card input,
+      .password-card button {
+        font-size: 16px;
+      }
+    }
 
-/* Login card */
-.password-card {
-  background: #1e293b;
 
-  width: min(400px, 100%);
-  max-width: 400px;
+    /* ================================
+       NAVIGATION
+       ================================ */
 
-  padding: 2.5rem;
-  box-sizing: border-box;
+    .nav {
+      position: relative;
+      z-index: 5000;
+    }
 
-  border-radius: 12px;
+    .nav-toggle {
+      display: none;
+      flex-direction: column;
+      justify-content: center;
+      gap: 5px;
 
-  box-shadow:
-    0 10px 25px rgba(0, 0, 0, 0.3);
+      background: none;
+      border: none;
+      cursor: pointer;
 
-  text-align: center;
+      position: relative;
+      z-index: 5002;
+    }
 
-  font-family: 'DM Sans', sans-serif;
-}
+    .nav-toggle span {
+      display: block;
+      width: 28px;
+      height: 3px;
+      background: #ffffff;
+      border-radius: 2px;
+    }
 
-/* Mobile adjustments */
-@media (max-width: 600px) {
 
-  #password-overlay {
-    min-height: 110vh;
-    min-height: 110dvh;
-    align-items: center;
-  }
+    @media (max-width: 1150px) {
 
-  .password-card {
-    width: 100%;
-    max-width: none;
-    padding: 1.5rem;
-  }
+      .nav-toggle {
+        display: flex;
+      }
 
-  .password-heading {
-    font-size: 2.2rem;
-  }
+      .nav-links {
+        display: none;
 
-  .password-card h2 {
-    font-size: 1.1rem;
-  }
+        position: absolute;
 
-  .password-card input,
-  .password-card button {
-    font-size: 16px;
-  }
-}
+        top: 100%;
+        left: 0;
+        right: 0;
 
-.nav {
-  position: relative;
-  z-index: 5000;
-}
+        width: 100%;
 
-.nav-toggle {
-  display: none;
-  flex-direction: column;
-  justify-content: center;
-  gap: 5px;
+        flex-direction: column;
 
-  background: none;
-  border: none;
-  cursor: pointer;
+        background: #0f172a;
 
-  position: relative;
-  z-index: 5002;
-}
+        padding: 20px;
+        margin: 0;
 
-.nav-toggle span {
-  display: block;
-  width: 28px;
-  height: 3px;
-  background: #ffffff;
-  border-radius: 2px;
-}
+        box-sizing: border-box;
 
-@media (max-width: 1150px) {
+        z-index: 5001;
+      }
 
-  .nav-toggle {
-    display: flex;
-  }
+      .nav-links.active {
+        display: flex !important;
+      }
 
-  .nav-links {
-    display: none;
+      .nav-links li {
+        width: 100%;
+      }
 
-    position: absolute;
+      .nav-links a {
+        display: block;
+        width: 100%;
 
-    top: 100%;
-    left: 0;
-    right: 0;
+        padding: 12px 16px;
 
-    width: 100%;
+        box-sizing: border-box;
+      }
+    }
 
-    flex-direction: column;
-
-    background: #0f172a;
-
-    padding: 20px;
-
-    margin: 0;
-
-    box-sizing: border-box;
-
-    z-index: 5001;
-  }
-
-  .nav-links.active {
-    display: flex !important;
-  }
-
-  .nav-links li {
-    width: 100%;
-  }
-
-  .nav-links a {
-    display: block;
-    width: 100%;
-
-    padding: 12px 16px;
-
-    box-sizing: border-box;
-  }
-}
-    
-
-    
   </style>
 </head>
 
+
 <body class="page-inner login-locked">
 
-<!-- PASSWORD PROTECTED OVERLAY -->
-<div id="password-overlay">
-  <div class="password-card">
 
-    <h1 class="password-heading">SURF ROBOTICS</h1>
-    <h2>Member Space</h2>
+  <!-- =========================================
+       PASSWORD PROTECTED OVERLAY
+       ========================================= -->
 
-    <p>Please enter the password to continue.</p>
-    
-    <form id="password-form" onsubmit="checkPassword(event)">
+  <div id="password-overlay">
 
-  <input
-    type="email"
-    id="username-input"
-    placeholder="Email"
-    required
-    autocomplete="username"
-  >
+    <div class="password-card">
 
-  <input
-    type="password"
-    id="password-input"
-    placeholder="Password"
-    required
-    autocomplete="current-password"
-  >
+      <h1 class="password-heading">
+        SURF ROBOTICS
+      </h1>
 
-  <button type="submit">Unlock</button>
+      <h2>
+        Member Space
+      </h2>
 
-  <p id="error-msg" class="error-msg">
-    Incorrect email or password. Please try again.
-  </p>
+      <p>
+        Please enter the password to continue.
+      </p>
 
-</form>
+
+      <form
+        id="password-form"
+        onsubmit="checkPassword(event)"
+      >
+
+        <input
+          type="email"
+          id="username-input"
+          placeholder="Email"
+          required
+          autocomplete="username"
+        >
+
+        <input
+          type="password"
+          id="password-input"
+          placeholder="Password"
+          required
+          autocomplete="current-password"
+        >
+
+        <button type="submit">
+          Unlock
+        </button>
+
+        <p
+          id="error-msg"
+          class="error-msg"
+        >
+          Incorrect email or password. Please try again.
+        </p>
+
+      </form>
+
+    </div>
 
   </div>
-</div>
 
-  <!-- NAVIGATION -->
+
+  <!-- =========================================
+       NAVIGATION
+       ========================================= -->
+
   <nav class="nav">
 
     <a href="/" class="nav-logo">
-      <img src="SURF_Logo.png" alt="SURF Robotics logo" class="nav-logo-image">
+
+      <img
+        src="SURF_Logo.png"
+        alt="Surf Robotics logo"
+        class="nav-logo-image"
+      >
+
       SURF ROBOTICS
+
     </a>
+
 
     <button
       class="nav-toggle"
       id="navToggle"
       aria-label="Toggle menu"
     >
+
       <span></span>
       <span></span>
       <span></span>
+
     </button>
 
-    <ul class="nav-links" id="navLinks">
-      <li><a href="/">Home</a></li>
-      <li><a href="about">About Us</a></li>
-      <li><a href="season">2026–27 Season</a></li>
-      <li><a href="outreach">Outreach & Sponsors</a></li>
-      <li><a href="robot">Robot</a></li>
-      <li><a href="blog">Blog</a></li>
-      <li><a href="team" class="active">Members only</a></li>
+
+    <ul
+      class="nav-links"
+      id="navLinks"
+    >
+
+      <li>
+        <a href="/">
+          Home
+        </a>
+      </li>
+
+      <li>
+        <a href="about">
+          About Us
+        </a>
+      </li>
+
+      <li>
+        <a href="season">
+          2026–27 Season
+        </a>
+      </li>
+
+      <li>
+        <a href="outreach">
+          Outreach & Sponsors
+        </a>
+      </li>
+
+      <li>
+        <a href="robot">
+          Robot
+        </a>
+      </li>
+
+      <li>
+        <a href="blog">
+          Blog
+        </a>
+      </li>
+
+      <li>
+        <a href="team" class="active">
+          Members only
+        </a>
+      </li>
+
     </ul>
 
   </nav>
 
 
-  <!-- HERO -->
+  <!-- =========================================
+       HERO
+       ========================================= -->
+
   <header class="page-hero">
 
     <div class="page-hero-bg"></div>
 
     <div class="container">
-      <h1 class="page-hero-title">Member Space</h1>
+
+      <h1 class="page-hero-title">
+        Member Space
+      </h1>
+
     </div>
 
   </header>
 
 
+  <!-- =========================================
+       MAIN CONTENT
+       ========================================= -->
+
   <main>
+
+
+    <!-- MATERIALS FORM -->
 
     <section class="section">
 
@@ -391,7 +442,11 @@ body.login-locked {
           Materials Form
         </h2>
 
-        <a href="https://forms.gle/PRzGaCD5s3dtkx6S6">CLICK ME!</a>
+        <a
+          href="https://forms.gle/PRzGaCD5s3dtkx6S6"
+        >
+          CLICK ME!
+        </a>
 
       </div>
 
@@ -399,6 +454,7 @@ body.login-locked {
 
 
     <!-- STARTER BOT -->
+
     <section class="section section-sand">
 
       <div class="container">
@@ -410,7 +466,13 @@ body.login-locked {
         <p>
           Track parts, progress, etc.
         </p>
-        <a href="https://docs.google.com/spreadsheets/d/1sfOlqnhsd861YVN8hmgj8G03ao3Aqj_NejMODsH6tm0/edit?gid=652018483#gid=652018483">CLICK ME!</a>
+
+        <a
+          href="https://docs.google.com/spreadsheets/d/1sfOlqnhsd861YVN8hmgj8G03ao3Aqj_NejMODsH6tm0/edit?gid=652018483#gid=652018483"
+        >
+          CLICK ME!
+        </a>
+
 
         <figure
           style="
@@ -440,7 +502,6 @@ body.login-locked {
               opacity: 0.7;
             "
           >
-            
           </figcaption>
 
         </figure>
@@ -449,31 +510,62 @@ body.login-locked {
 
     </section>
 
+
   </main>
 
 
-  <!-- FOOTER -->
+  <!-- =========================================
+       FOOTER
+       ========================================= -->
+
   <footer class="footer">
 
     <div class="container footer-inner">
 
+
       <div class="footer-brand">
-        <span class="logo-wave">~</span>
+
+        <span class="logo-wave">
+          ~
+        </span>
+
         SURF ROBOTICS
 
         <p>
           FTC Team · Coastal California
         </p>
+
       </div>
 
+
       <nav class="footer-nav">
-        <a href="/">Home</a>
-        <a href="about">About</a>
-        <a href="season">Season</a>
-        <a href="outreach">Outreach</a>
-        <a href="robot">Robot</a>
-        <a href="blog">Blog</a>
+
+        <a href="/">
+          Home
+        </a>
+
+        <a href="about">
+          About
+        </a>
+
+        <a href="season">
+          Season
+        </a>
+
+        <a href="outreach">
+          Outreach
+        </a>
+
+        <a href="robot">
+          Robot
+        </a>
+
+        <a href="blog">
+          Blog
+        </a>
+
       </nav>
+
 
       <img
         src="FIRSTTech_iconHorz_RGB_reverse.png.webp"
@@ -481,135 +573,291 @@ body.login-locked {
         width="200"
       >
 
+
       <p class="footer-copy">
-        © 2026 Surf Robotics. The FIRST® Tech Challenge Logo is a trademark of FIRST®
+        © 2026 Surf Robotics.
+        The FIRST® Tech Challenge Logo is a trademark of FIRST®
       </p>
+
 
     </div>
 
   </footer>
 
 
+  <!-- =========================================
+       EXISTING SITE SCRIPTS
+       ========================================= -->
+
   <script src="main.js"></script>
   <script src="blog.js"></script>
 
-<!--PASSWORD PROTECTION-->
-<script>
-  async function generateSha256(text) {
-    const encoder = new TextEncoder();
-    const data = encoder.encode(text);
 
-    const hashBuffer = await crypto.subtle.digest('SHA-256', data);
+  <!-- =========================================
+       PASSWORD PROTECTION
+       ========================================= -->
 
-    const hashArray = Array.from(new Uint8Array(hashBuffer));
+  <script>
 
-    return hashArray
-      .map(b => b.toString(16).padStart(2, '0'))
-      .join('');
-  }
+    /*
+     * SHA-256 hashing
+     */
+
+    async function generateSha256(text) {
+
+      const encoder = new TextEncoder();
+
+      const data = encoder.encode(text);
+
+      const hashBuffer =
+        await crypto.subtle.digest(
+          'SHA-256',
+          data
+        );
+
+      const hashArray =
+        Array.from(
+          new Uint8Array(hashBuffer)
+        );
+
+      return hashArray
+        .map(
+          b => b.toString(16).padStart(2, '0')
+        )
+        .join('');
+
+    }
 
 
-  // Approved member email hashes (All of the emails on team drive)
+    /*
+     * Approved member email hashes
+     */
+
     const ALLOWED_EMAIL_HASHES = [
-    "182e0fb217b22c707b6456fb23ce0e64ed0d4389b811662c4d1b7d6a878914ef",
-    "4bf5af36ef1d23b423464bf7fd31f1e1c577b42509cec137bf2f0d2fcb52276a",
-    "36e6186286dce05c2d756c8336ff3042a801d3f59612852a892ae41c8e3996ca",
-    "930f45bf13543b915ba541e9a95702dd6be2deed7855ff91803e34aaf38db380",
-    "a534a2f124e607b0cd41ee7a1881e3eacfea4418cdf15e7d4e4bedddefb3859a",
-    "78593585a487ee999a6b16a1ad0eb93f4a1f4adc7f7b1e13ef2cbe0583b4dbca",
-    "7efad1ae41a4f4fceccf04fea25a334fd52928dbc4f49ce4b9f3575ea1cb6e62",
-    "b373e9de9afc949ed34da291f28fbd2b707ef9c10aaa93cf0159ffc8d81caf11",
-    "e98ef5b2ebdbb256e1ef5e0a9c1330177f78dc259a6faaa62a7c3ad4d29d09b1",
-    "cb947ffc2306b6720e65d1dfd9df5e6a7cca2bd34c8ede0a7c0bf39d3dab4afc",
-    "94983c5c89f8003b1b6be31b90b87fab9e128f866d54a4f4c126849b5e6a3efd",
-    "eec533a29c419bdb60fb9e0a0c91b7d6ba7f95cc40de3a9c86e0885003a7fbc9",
-    "171da284693be27cea022af08d357945277ca3188625d759eb636e07b5f05235",
-    "343e3d35fa7e64f0508193bd61eca644923a37ef3390b7926c1f5d55db9443ca",
-    "4671918a3ea4d9272548fb80a21a8a0e95a249ac8591920e45942f73b5ae05d1"
-  ];
+
+      "182e0fb217b22c707b6456fb23ce0e64ed0d4389b811662c4d1b7d6a878914ef",
+
+      "4bf5af36ef1d23b423464bf7fd31f1e1c577b42509cec137bf2f0d2fcb52276a",
+
+      "36e6186286dce05c2d756c8336ff3042a801d3f59612852a892ae41c8e3996ca",
+
+      "930f45bf13543b915ba541e9a95702dd6be2deed7855ff91803e34aaf38db380",
+
+      "a534a2f124e607b0cd41ee7a1881e3eacfea4418cdf15e7d4e4bedddefb3859a",
+
+      "78593585a487ee999a6b16a1ad0eb93f4a1f4adc7f7b1e13ef2cbe0583b4dbca",
+
+      "7efad1ae41a4f4fceccf04fea25a334fd52928dbc4f49ce4b9f3575ea1cb6e62",
+
+      "b373e9de9afc949ed34da291f28fbd2b707ef9c10aaa93cf0159ffc8d81caf11",
+
+      "e98ef5b2ebdbb256e1ef5e0a9c1330177f78dc259a6faaa62a7c3ad4d29d09b1",
+
+      "cb947ffc2306b6720e65d1dfd9df5e6a7cca2bd34c8ede0a7c0bf39d3dab4afc",
+
+      "94983c5c89f8003b1b6be31b90b87fab9e128f866d54a4f4c126849b5e6a3efd",
+
+      "eec533a29c419bdb60fb9e0a0c91b7d6ba7f95cc40de3a9c86e0885003a7fbc9",
+
+      "171da284693be27cea022af08d357945277ca3188625d759eb636e07b5f05235",
+
+      "343e3d35fa7e64f0508193bd61eca644923a37ef3390b7926c1f5d55db9443ca",
+
+      "4671918a3ea4d9272548fb80a21a8a0e95a249ac8591920e45942f73b5ae05d1"
+
+    ];
 
 
-  // Password hash
-  const TARGET_PASS =
-    "f47c4b720cd560809b27592e4933f897170e7cfe999a3f80d04c7b2887aa8843";
+    /*
+     * Password hash
+     */
+
+    const TARGET_PASS =
+      "f47c4b720cd560809b27592e4933f897170e7cfe999a3f80d04c7b2887aa8843";
 
 
-  // Check whether the user already logged in during this browser session
-  window.addEventListener('DOMContentLoaded', () => {
-    if (sessionStorage.getItem('memberAuth') === 'true') {
-      document.getElementById('password-overlay').style.display = 'none';
+    /*
+     * Check whether the user is already
+     * authenticated during this session.
+     */
+
+    window.addEventListener(
+      'DOMContentLoaded',
+      () => {
+
+        if (
+          sessionStorage.getItem(
+            'memberAuth'
+          ) === 'true'
+        ) {
+
+          document.getElementById(
+            'password-overlay'
+          ).style.display = 'none';
+
+          document.body.classList.remove(
+            'login-locked'
+          );
+
+        }
+
+      }
+    );
+
+
+    /*
+     * Login
+     */
+
+    async function checkPassword(event) {
+
+      event.preventDefault();
+
+
+      const emailInput =
+        document.getElementById(
+          'username-input'
+        );
+
+      const passwordInput =
+        document.getElementById(
+          'password-input'
+        );
+
+      const errorMsg =
+        document.getElementById(
+          'error-msg'
+        );
+
+
+      /*
+       * Get email
+       *
+       * trim() removes accidental spaces.
+       * toLowerCase() makes email matching
+       * case-insensitive.
+       */
+
+      const emailText =
+        emailInput.value
+          .trim()
+          .toLowerCase();
+
+
+      /*
+       * Get password
+       */
+
+      const passwordText =
+        passwordInput.value;
+
+
+      /*
+       * Hash email
+       */
+
+      const emailHash =
+        await generateSha256(
+          emailText
+        );
+
+
+      /*
+       * Hash password
+       */
+
+      const passwordHash =
+        await generateSha256(
+          passwordText
+        );
+
+
+      /*
+       * Validate email
+       */
+
+      const validEmail =
+        ALLOWED_EMAIL_HASHES.includes(
+          emailHash
+        );
+
+
+      /*
+       * Validate password
+       */
+
+      const validPassword =
+        passwordHash === TARGET_PASS;
+
+
+      /*
+       * Both email AND password
+       * must be correct.
+       */
+
+      if (
+        validEmail &&
+        validPassword
+      ) {
+
+        /*
+         * Remember login for this
+         * browser session.
+         */
+
+        sessionStorage.setItem(
+          'memberAuth',
+          'true'
+        );
+
+
+        /*
+         * Hide password screen.
+         */
+
+        document.getElementById(
+          'password-overlay'
+        ).style.display = 'none';
+
+
+        /*
+         * Allow page scrolling again.
+         */
+
+        document.body.classList.remove(
+          'login-locked'
+        );
+
+      } else {
+
+        /*
+         * Show error.
+         */
+
+        errorMsg.style.display =
+          'block';
+
+
+        /*
+         * Clear password.
+         */
+
+        passwordInput.value = '';
+
+
+        /*
+         * Put cursor back in password box.
+         */
+
+        passwordInput.focus();
+
+      }
+
     }
-  });
-  
 
-  async function checkPassword(event) {
-    event.preventDefault();
+  </script>
 
-    // Get email
-    const emailText = document
-      .getElementById('username-input')
-      .value
-      .trim()
-      .toLowerCase();
-
-    // Get password
-    const passwordText =
-      document.getElementById('password-input').value;
-
-    // Hash both
-    const emailHash = await generateSha256(emailText);
-    const passwordHash = await generateSha256(passwordText);
-
-    // Check email
-    const validEmail =
-      ALLOWED_EMAIL_HASHES.includes(emailHash);
-
-    // Check password
-    const validPassword =
-      passwordHash === TARGET_PASS;
-
-    const errorMsg =
-      document.getElementById('error-msg');
-
-
-    // Both email AND password must be correct
-    if (validEmail && validPassword) {
-
-      sessionStorage.setItem('memberAuth', 'true');
-
-      document.getElementById('password-overlay')
-        .style.display = 'none';
-
-    } else {
-
-      errorMsg.style.display = 'block';
-
-      document.getElementById('password-input').value = '';
-
-    }
-  }
-  
-  window.addEventListener('DOMContentLoaded', () => {
-  if (sessionStorage.getItem('memberAuth') === 'true') {
-    document.getElementById('password-overlay').style.display = 'none';
-
-    document.body.classList.remove('login-locked');
-  }
-  });
-
-  if (validEmail && validPassword) {
-    
-  sessionStorage.setItem('memberAuth', 'true');
-  document.getElementById('password-overlay').style.display = 'none';
-  document.body.classList.remove('login-locked');
-
-  } else {
-    
-  errorMsg.style.display = 'block';
-  document.getElementById('password-input').value = '';
-  }
-</script>
 
 </body>
-
 </html>
+```
