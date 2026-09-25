@@ -121,10 +121,87 @@
       margin-top: 0.75rem;
       display: none;
     }
+
+    /* Prevent page scrolling while login screen is active */
+body.login-locked {
+  overflow: hidden;
+  height: 100%;
+}
+
+/* Password overlay */
+#password-overlay {
+  position: fixed;
+  inset: 0;
+
+  width: 100%;
+  min-height: 100vh;
+  min-height: 100dvh;
+
+  background: #0f172a;
+  color: #ffffff;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  padding: 20px;
+  box-sizing: border-box;
+
+  overflow-y: auto;
+
+  z-index: 99999;
+}
+
+/* Login card */
+.password-card {
+  background: #1e293b;
+
+  width: min(400px, 100%);
+  max-width: 400px;
+
+  padding: 2.5rem;
+  box-sizing: border-box;
+
+  border-radius: 12px;
+
+  box-shadow:
+    0 10px 25px rgba(0, 0, 0, 0.3);
+
+  text-align: center;
+
+  font-family: 'DM Sans', sans-serif;
+}
+
+/* Mobile adjustments */
+@media (max-width: 600px) {
+
+  #password-overlay {
+    padding: 16px;
+    align-items: center;
+  }
+
+  .password-card {
+    padding: 1.5rem;
+    border-radius: 10px;
+  }
+
+  .password-heading {
+    font-size: 2.2rem;
+  }
+
+  .password-card h2 {
+    font-size: 1.1rem;
+  }
+
+  .password-card input,
+  .password-card button {
+    font-size: 16px;
+  }
+}
   </style>
 </head>
 
-<body class="page-inner">
+<body class="page-inner login-locked">
 
 <!-- PASSWORD PROTECTED OVERLAY -->
 <div id="password-overlay">
@@ -335,8 +412,8 @@
   }
 
 
-  // Approved member email hashes
-  const ALLOWED_EMAIL_HASHES = [
+  // Approved member email hashes (All of the emails on team drive)
+    const ALLOWED_EMAIL_HASHES = [
     "4bf5af36ef1d23b423464bf7fd31f1e1c577b42509cec137bf2f0d2fcb52276a",
     "36e6186286dce05c2d756c8336ff3042a801d3f59612852a892ae41c8e3996ca",
     "930f45bf13543b915ba541e9a95702dd6be2deed7855ff91803e34aaf38db380",
@@ -365,7 +442,7 @@
       document.getElementById('password-overlay').style.display = 'none';
     }
   });
-
+  
 
   async function checkPassword(event) {
     event.preventDefault();
@@ -412,6 +489,26 @@
       document.getElementById('password-input').value = '';
 
     }
+  }
+  
+  window.addEventListener('DOMContentLoaded', () => {
+  if (sessionStorage.getItem('memberAuth') === 'true') {
+    document.getElementById('password-overlay').style.display = 'none';
+
+    document.body.classList.remove('login-locked');
+  }
+  });
+
+  if (validEmail && validPassword) {
+    
+  sessionStorage.setItem('memberAuth', 'true');
+  document.getElementById('password-overlay').style.display = 'none';
+  document.body.classList.remove('login-locked');
+
+  } else {
+    
+  errorMsg.style.display = 'block';
+  document.getElementById('password-input').value = '';
   }
 </script>
 
