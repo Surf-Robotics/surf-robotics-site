@@ -1,22 +1,28 @@
 // === SURF ROBOTICS — MAIN JS ===
 
 // Mobile nav toggle
-const navToggle = document.getElementById('navToggle');
-const navLinks = document.getElementById('navLinks');
+document.addEventListener("DOMContentLoaded", () => {
+  const navToggle = document.getElementById("navToggle");
+  const navLinks = document.getElementById("navLinks");
 
-if (navToggle && navLinks) {
-  navToggle.addEventListener('click', () => {
-    navLinks.classList.toggle('open');
-    navToggle.classList.toggle('open');
+  if (!navToggle || !navLinks) return;
+
+  navToggle.addEventListener("click", (event) => {
+    event.preventDefault();
+    event.stopPropagation();
+
+    navLinks.classList.toggle("active");
+    navToggle.classList.toggle("active");
   });
-  // Close on link click
-  navLinks.querySelectorAll('a').forEach(a => {
-    a.addEventListener('click', () => {
-      navLinks.classList.remove('open');
-      navToggle.classList.remove('open');
+
+  // Close menu after clicking a link
+  navLinks.querySelectorAll("a").forEach(link => {
+    link.addEventListener("click", () => {
+      navLinks.classList.remove("active");
+      navToggle.classList.remove("active");
     });
   });
-}
+});
 
 // Nav background on scroll
 const nav = document.querySelector('.nav');
