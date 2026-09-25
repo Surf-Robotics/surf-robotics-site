@@ -90,6 +90,31 @@
       background: #0369a1;
     }
 
+  .password-heading {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 3rem;
+    letter-spacing: 3px;
+    margin: 0 0 0.25rem;
+    color: #ffffff;
+    }
+
+  .password-card h2 {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 1.25rem;
+    margin: 0 0 0.75rem;
+    color: #94a3b8;
+    font-weight: 500;
+    }
+
+.error-msg {
+  color: #ff3333 !important;
+  font-size: 0.9rem;
+  font-weight: 700;
+  margin-top: 0.75rem;
+  margin-bottom: 0;
+  display: none;
+}
+
     .error-msg {
       color: #ef4444;
       font-size: 0.85rem;
@@ -101,18 +126,43 @@
 
 <body class="page-inner">
 
-  <!-- PASSWORD PROTECTED OVERLAY -->
-  <div id="password-overlay">
-    <div class="password-card">
-      <h2>Member Access</h2>
-      <p>Please enter the access code to view this page.</p>
-      <form id="password-form" onsubmit="checkPassword(event)">
-        <input type="password" id="password-input" placeholder="Enter Password" required autocomplete="off">
-        <button type="submit">Unlock</button>
-        <p id="error-msg" class="error-msg">Incorrect password. Please try again.</p>
-      </form>
-    </div>
+<!-- PASSWORD PROTECTED OVERLAY -->
+<div id="password-overlay">
+  <div class="password-card">
+
+    <h1 class="password-heading">SURF ROBOTICS</h1>
+    <h2>Member Space</h2>
+
+    <p>Please enter the password to continue.</p>
+    
+    <form id="password-form" onsubmit="checkPassword(event)">
+
+  <input
+    type="email"
+    id="username-input"
+    placeholder="Email"
+    required
+    autocomplete="username"
+  >
+
+  <input
+    type="password"
+    id="password-input"
+    placeholder="Password"
+    required
+    autocomplete="current-password"
+  >
+
+  <button type="submit">Unlock</button>
+
+  <p id="error-msg" class="error-msg">
+    Incorrect email or password. Please try again.
+  </p>
+
+</form>
+
   </div>
+</div>
 
   <!-- NAVIGATION -->
   <nav class="nav">
@@ -269,47 +319,101 @@
   <script src="main.js"></script>
   <script src="blog.js"></script>
 
-  <!-- PASSWORD SCRIPT -->
-  <script>
-    async function generateSha256(codeString) {
-      // Encode the input string as UTF-8 bytes
-      const encoder = new TextEncoder();
-      const data = encoder.encode(codeString);
-  
-      // Compute the SHA-256 digest
-      const hashBuffer = await crypto.subtle.digest('SHA-256', data);
-  
-      // Convert the ArrayBuffer to a lowercase hex string
-      const hashArray = Array.from(new Uint8Array(hashBuffer));
-      const hashHex = hashArray.map(b => b.toString(16).padStart(2, '0')).join('');
-  
-      return hashHex
+<!--PASSWORD PROTECTION-->
+<script>
+  async function generateSha256(text) {
+    const encoder = new TextEncoder();
+    const data = encoder.encode(text);
+
+    const hashBuffer = await crypto.subtle.digest('SHA-256', data);
+
+    const hashArray = Array.from(new Uint8Array(hashBuffer));
+
+    return hashArray
+      .map(b => b.toString(16).padStart(2, '0'))
+      .join('');
+  }
+
+
+  // Approved member email hashes
+  const ALLOWED_EMAIL_HASHES = [
+    "4bf5af36ef1d23b423464bf7fd31f1e1c577b42509cec137bf2f0d2fcb52276a",
+    "36e6186286dce05c2d756c8336ff3042a801d3f59612852a892ae41c8e3996ca",
+    "930f45bf13543b915ba541e9a95702dd6be2deed7855ff91803e34aaf38db380",
+    "a534a2f124e607b0cd41ee7a1881e3eacfea4418cdf15e7d4e4bedddefb3859a",
+    "78593585a487ee999a6b16a1ad0eb93f4a1f4adc7f7b1e13ef2cbe0583b4dbca",
+    "7efad1ae41a4f4fceccf04fea25a334fd52928dbc4f49ce4b9f3575ea1cb6e62",
+    "b373e9de9afc949ed34da291f28fbd2b707ef9c10aaa93cf0159ffc8d81caf11",
+    "e98ef5b2ebdbb256e1ef5e0a9c1330177f78dc259a6faaa62a7c3ad4d29d09b1",
+    "cb947ffc2306b6720e65d1dfd9df5e6a7cca2bd34c8ede0a7c0bf39d3dab4afc",
+    "94983c5c89f8003b1b6be31b90b87fab9e128f866d54a4f4c126849b5e6a3efd",
+    "eec533a29c419bdb60fb9e0a0c91b7d6ba7f95cc40de3a9c86e0885003a7fbc9",
+    "171da284693be27cea022af08d357945277ca3188625d759eb636e07b5f05235",
+    "343e3d35fa7e64f0508193bd61eca644923a37ef3390b7926c1f5d55db9443ca",
+    "4671918a3ea4d9272548fb80a21a8a0e95a249ac8591920e45942f73b5ae05d1"
+  ];
+
+
+  // Password hash
+  const TARGET_PASS =
+    "f47c4b720cd560809b27592e4933f897170e7cfe999a3f80d04c7b2887aa8843";
+
+
+  // Check whether the user already logged in during this browser session
+  window.addEventListener('DOMContentLoaded', () => {
+    if (sessionStorage.getItem('memberAuth') === 'true') {
+      document.getElementById('password-overlay').style.display = 'none';
     }
-    // abcd1234!
-    const TARGET_PASS = "f47c4b720cd560809b27592e4933f897170e7cfe999a3f80d04c7b2887aa8843";
+  });
 
-    // Check session on page load
-    window.addEventListener('DOMContentLoaded', () => {
-      if (sessionStorage.getItem('memberAuth') === 'true') {
-        document.getElementById('password-overlay').style.display = 'none';
-      }
-    });
 
-    async function checkPassword(event) {
-      event.preventDefault();
-      const inputtext = document.getElementById('password-input').value;
-      const input = await generateSha256(inputtext);
-      const errorMsg = document.getElementById('error-msg');
+  async function checkPassword(event) {
+    event.preventDefault();
 
-      if (input === TARGET_PASS) {
-        sessionStorage.setItem('memberAuth', 'true');
-        document.getElementById('password-overlay').style.display = 'none';
-      } else {
-        errorMsg.style.display = 'block';
-        document.getElementById('password-input').value = '';
-      }
+    // Get email
+    const emailText = document
+      .getElementById('username-input')
+      .value
+      .trim()
+      .toLowerCase();
+
+    // Get password
+    const passwordText =
+      document.getElementById('password-input').value;
+
+    // Hash both
+    const emailHash = await generateSha256(emailText);
+    const passwordHash = await generateSha256(passwordText);
+
+    // Check email
+    const validEmail =
+      ALLOWED_EMAIL_HASHES.includes(emailHash);
+
+    // Check password
+    const validPassword =
+      passwordHash === TARGET_PASS;
+
+    const errorMsg =
+      document.getElementById('error-msg');
+
+
+    // Both email AND password must be correct
+    if (validEmail && validPassword) {
+
+      sessionStorage.setItem('memberAuth', 'true');
+
+      document.getElementById('password-overlay')
+        .style.display = 'none';
+
+    } else {
+
+      errorMsg.style.display = 'block';
+
+      document.getElementById('password-input').value = '';
+
     }
-  </script>
+  }
+</script>
 
 </body>
 
