@@ -218,6 +218,49 @@ body.login-locked {
   }
 }
 
+    @media (max-width: 1150px) {
+
+  .nav-toggle {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    cursor: pointer;
+  }
+
+  .nav-links {
+    display: none;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+
+    flex-direction: column;
+
+    background: #0f172a;
+
+    padding: 20px;
+
+    width: 100%;
+    box-sizing: border-box;
+
+    z-index: 1000;
+  }
+
+  .nav-links.active {
+    display: flex;
+  }
+
+  .nav-links li {
+    width: 100%;
+  }
+
+  .nav-links a {
+    display: block;
+    width: 100%;
+    padding: 12px 0;
+  }
+}
+
     
   </style>
 </head>
