@@ -44,10 +44,8 @@
       z-index: 99999;
     }
 
-    body.login-locked {
-      overflow: hidden;
+      position: fixed;
       height: 100%;
-    }
 
     .password-card {
       background: #1e293b;
@@ -206,55 +204,63 @@
       background: #ffffff;
       border-radius: 2px;
     }
-
-
+    
     @media (max-width: 1150px) {
 
-      .nav-toggle {
-        display: flex;
-      }
+  .nav {
+    position: relative;
+    z-index: 10000;
+    overflow: visible !important;
+  }
 
-      .nav-links {
-        display: none;
+  .nav-toggle {
+    display: flex;
+    position: relative;
+    z-index: 10002;
+  }
 
-        position: absolute;
+  .nav-links {
+    display: none !important;
 
-        top: 100%;
-        left: 0;
-        right: 0;
+    position: fixed;
 
-        width: 100%;
+    top: 80px;
+    left: 0;
+    right: 0;
 
-        flex-direction: column;
+    width: 100%;
 
-        background: #0f172a;
+    flex-direction: column;
 
-        padding: 20px;
-        margin: 0;
+    background: #0f172a;
 
-        box-sizing: border-box;
+    padding: 20px;
+    margin: 0;
 
-        z-index: 5001;
-      }
+    box-sizing: border-box;
 
-      .nav-links.active {
-        display: flex !important;
-      }
+    max-height: calc(100dvh - 80px);
+    overflow-y: auto;
 
-      .nav-links li {
-        width: 100%;
-      }
+    z-index: 10001;
+  }
 
-      .nav-links a {
-        display: block;
-        width: 100%;
+  .nav-links.active {
+    display: flex !important;
+  }
 
-        padding: 12px 16px;
+  .nav-links li {
+    display: block;
+    width: 100%;
+  }
 
-        box-sizing: border-box;
-      }
-    }
-
+  .nav-links a {
+    display: block;
+    width: 100%;
+    padding: 14px 16px;
+    box-sizing: border-box;
+  }
+}
   </style>
 </head>
 
@@ -681,30 +687,14 @@
      * authenticated during this session.
      */
 
-    window.addEventListener(
-      'DOMContentLoaded',
-      () => {
-
-        if (
-          sessionStorage.getItem(
-            'memberAuth'
-          ) === 'true'
-        ) {
-
-          document.getElementById(
-            'password-overlay'
-          ).style.display = 'none';
-
-          document.body.classList.remove(
-            'login-locked'
-          );
-
-        }
-
-      }
-    );
-
-
+    
+    window.addEventListener('DOMContentLoaded', () => {
+  if (sessionStorage.getItem('memberAuth') === 'true') {
+    document.getElementById('password-overlay').style.display = 'none';
+    document.body.classList.remove('login-locked');
+  }
+});
+      
     /*
      * Login
      */
@@ -795,62 +785,19 @@
        * must be correct.
        */
 
-      if (
-        validEmail &&
-        validPassword
-      ) {
+      if (validEmail && validPassword) {
 
-        /*
-         * Remember login for this
-         * browser session.
-         */
+      sessionStorage.setItem('memberAuth', 'true');
 
-        sessionStorage.setItem(
-          'memberAuth',
-          'true'
-        );
+      document.getElementById('password-overlay').style.display = 'none';
 
-
-        /*
-         * Hide password screen.
-         */
-
-        document.getElementById(
-          'password-overlay'
-        ).style.display = 'none';
-
-
-        /*
-         * Allow page scrolling again.
-         */
-
-        document.body.classList.remove(
-          'login-locked'
-        );
+      document.body.classList.remove('login-locked');
 
       } else {
 
-        /*
-         * Show error.
-         */
+      errorMsg.style.display = 'block';
 
-        errorMsg.style.display =
-          'block';
-
-
-        /*
-         * Clear password.
-         */
-
-        passwordInput.value = '';
-
-
-        /*
-         * Put cursor back in password box.
-         */
-
-        passwordInput.focus();
-
+      document.getElementById('password-input').value = '';
       }
 
     }
@@ -860,4 +807,4 @@
 
 </body>
 </html>
-```
+
