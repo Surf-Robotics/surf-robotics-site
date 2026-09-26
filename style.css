@@ -1665,7 +1665,8 @@ button.btn-link:hover {
   .season-teaser-inner,
   .featured-post { grid-template-columns: 1fr; gap: 36px; }
 
-  .mentors-grid { grid-template-columns: 1fr; }
+    .mentors-grid { grid-template-columns: 1fr; }
+} /* Close the 900px media query */
 
 @media (max-width: 600px) {
   .cards-grid,
