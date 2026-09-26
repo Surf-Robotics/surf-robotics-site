@@ -2776,3 +2776,82 @@ main a[href*="docs.google.com/spreadsheets/"]:hover {
     max-height: 30px !important;
   }
 }
+
+/* =====================================================
+   RESTORE ORIGINAL OUTLINED BUTTON DESIGN
+===================================================== */
+
+.btn,
+a.btn,
+button.btn {
+  display: inline-flex !important;
+  align-items: center;
+  justify-content: center;
+  min-height: 44px;
+  padding: 12px 24px;
+  border: 2px solid var(--sand) !important;
+  border-radius: 5px;
+  background: transparent !important;
+  color: var(--sand) !important;
+  font-family: "Space Mono", monospace;
+  font-size: 0.78rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  line-height: 1;
+  text-decoration: none !important;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: all 0.25s ease;
+}
+
+/* Gold outlined buttons */
+.btn-primary,
+a.btn-primary,
+button.btn-primary {
+  background: transparent !important;
+  border-color: var(--sand) !important;
+  color: var(--sand) !important;
+}
+
+.btn-primary:hover,
+a.btn-primary:hover,
+button.btn-primary:hover {
+  background: var(--sand) !important;
+  border-color: var(--sand) !important;
+  color: var(--teal) !important;
+  transform: translateY(-2px);
+  box-shadow: var(--shadow);
+}
+
+/* White outlined buttons */
+.btn-ghost,
+a.btn-ghost,
+button.btn-ghost {
+  background: transparent !important;
+  border-color: rgba(255, 255, 255, 0.75) !important;
+  color: #ffffff !important;
+}
+
+.btn-ghost:hover,
+a.btn-ghost:hover,
+button.btn-ghost:hover {
+  background: transparent !important;
+  border-color: var(--sand) !important;
+  color: var(--sand) !important;
+  transform: translateY(-2px);
+}
+
+/* Home page YouTube button */
+.hero-actions a.btn-ghost[href*="youtube.com"],
+.hero-actions a[href*="youtube.com"] {
+  background: transparent !important;
+  border: 2px solid #ffffff !important;
+  color: #ffffff !important;
+}
+
+.hero-actions a.btn-ghost[href*="youtube.com"]:hover,
+.hero-actions a[href*="youtube.com"]:hover {
+  background: transparent !important;
+  border-color: var(--sand) !important;
+  color: var(--sand) !important;
+}
