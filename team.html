@@ -575,6 +575,51 @@
   }
 
 }
+
+    /* FINAL FIX — place at the bottom of team.html's <style> block */
+
+.nav .nav-logo > img.nav-logo-image {
+  width: 34px !important;
+  height: 34px !important;
+  min-width: 34px !important;
+  min-height: 34px !important;
+  max-width: 34px !important;
+  max-height: 34px !important;
+  object-fit: contain !important;
+  display: block !important;
+  flex: 0 0 34px !important;
+}
+
+/* Make the existing Member Space external links into buttons */
+.section .container > a[href^="https://forms.gle/"],
+.section .container > a[href*="docs.google.com/spreadsheets/"] {
+  display: inline-flex !important;
+  align-items: center;
+  justify-content: center;
+  min-height: 44px;
+  padding: 12px 24px;
+  margin-top: 8px;
+  border: 2px solid #e8c87a;
+  border-radius: 6px;
+  background: #e8c87a;
+  color: #0a4a5e !important;
+  font-family: "Space Mono", monospace;
+  font-size: 0.78rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  line-height: 1;
+  text-decoration: none !important;
+  text-transform: uppercase;
+  transition: transform 0.2s ease, background 0.2s ease;
+}
+
+.section .container > a[href^="https://forms.gle/"]:hover,
+.section .container > a[href*="docs.google.com/spreadsheets/"]:hover {
+  background: #c4a24a;
+  border-color: #c4a24a;
+  color: #0a4a5e !important;
+  transform: translateY(-2px);
+}
   </style>
 
 </head>
