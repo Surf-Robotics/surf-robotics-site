@@ -60,53 +60,85 @@ p { color: var(--text-mid); }
 .section-teal { background: var(--teal); color: var(--white); }
 .section-sand { background: var(--sand-pale); }
 
-/* ================================
+/* =============================================
    NAVIGATION
-   ================================ */
+============================================= */
+
+:root {
+  --nav-h: 68px;
+}
+
+
+/* Main navigation bar */
 
 .nav {
-  position: relative;
+  position: fixed;
   top: 0;
+  left: 0;
+  right: 0;
 
   width: 100%;
-
-  margin: 0;
-  padding: 0 24px;
+  height: var(--nav-h);
 
   display: flex;
   align-items: center;
 
-  min-height: 72px;
+  padding: 0 32px;
+
+  background: #0d1f28;
+
+  z-index: 10000;
 
   box-sizing: border-box;
-
-  z-index: 5000;
 }
 
 
-/* LOGO */
+/* =============================================
+   LOGO
+============================================= */
 
 .nav-logo {
   display: flex;
   align-items: center;
 
-  min-width: 0;
+  gap: 10px;
 
-  flex-shrink: 1;
+  flex-shrink: 0;
+
+  font-family: 'Bebas Neue', sans-serif;
+
+  font-size: 1.35rem;
+  letter-spacing: 0.06em;
+
+  color: #e8c87a;
+
+  text-decoration: none;
+
+  white-space: nowrap;
 }
 
+
 .nav-logo-image {
+  width: 36px;
+  height: 36px;
+
+  object-fit: contain;
+
+  display: block;
+
   flex-shrink: 0;
 }
 
 
-/* DESKTOP LINKS */
+/* =============================================
+   DESKTOP NAVIGATION LINKS
+============================================= */
 
 .nav-links {
   display: flex;
   align-items: center;
 
-  gap: 18px;
+  gap: 26px;
 
   margin: 0 0 0 auto;
   padding: 0;
@@ -114,12 +146,404 @@ p { color: var(--text-mid); }
   list-style: none;
 }
 
+
 .nav-links li {
   margin: 0;
+  padding: 0;
+
+  list-style: none;
 }
 
+
 .nav-links a {
+  display: block;
+
+  padding: 8px 0;
+
+  font-family: 'Space Mono', monospace;
+
+  font-size: 0.67rem;
+  font-weight: 700;
+
+  letter-spacing: 0.08em;
+
+  text-transform: uppercase;
+
+  color: rgba(255, 255, 255, 0.65);
+
+  text-decoration: none;
+
   white-space: nowrap;
+
+  transition:
+    color 0.25s ease,
+    opacity 0.25s ease;
+}
+
+
+.nav-links a:hover {
+  color: #e8c87a;
+}
+
+
+.nav-links a.active {
+  color: #e8c87a;
+}
+
+
+/* =============================================
+   HAMBURGER
+============================================= */
+
+.nav-toggle {
+  display: none;
+
+  width: 44px;
+  height: 44px;
+
+  margin-left: auto;
+  padding: 8px;
+
+  flex-shrink: 0;
+
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
+  gap: 5px;
+
+  background: transparent;
+
+  border: 0;
+
+  border-radius: 6px;
+
+  cursor: pointer;
+
+  appearance: none;
+  -webkit-appearance: none;
+
+  z-index: 10002;
+}
+
+
+.nav-toggle:hover {
+  background: rgba(255, 255, 255, 0.08);
+}
+
+
+.nav-toggle span {
+  display: block;
+
+  width: 26px;
+  height: 3px;
+
+  margin: 0;
+  padding: 0;
+
+  background: #ffffff;
+
+  border-radius: 3px;
+
+  pointer-events: none;
+}
+
+
+/* =============================================
+   PAGE OFFSET
+
+   Navigation is FIXED, so inner pages need
+   exactly one navigation-height offset.
+============================================= */
+
+.page-inner {
+  padding-top: var(--nav-h);
+}
+
+
+/* Home page should also start below navigation
+   if your home nav is fixed.
+*/
+
+.page-home {
+  padding-top: var(--nav-h);
+}
+
+
+/* =============================================
+   TABLETS / SMALL LAPTOPS / ALL iPADS
+
+   Includes:
+   iPad Pro
+   iPad Air
+   iPad mini
+   Android tablets
+   smaller laptops
+============================================= */
+
+@media (max-width: 1200px) {
+
+  .nav {
+    padding-left: 24px;
+    padding-right: 24px;
+  }
+
+
+  /*
+     Hide desktop navigation.
+  */
+
+  .nav-links {
+    display: none;
+
+    position: fixed;
+
+    top: var(--nav-h);
+    left: 0;
+    right: 0;
+
+    width: 100%;
+
+    margin: 0;
+
+    padding:
+      10px
+      24px
+      22px;
+
+    flex-direction: column;
+    align-items: stretch;
+
+    gap: 0;
+
+    background: #0d1f28;
+
+    border-top:
+      1px solid
+      rgba(255, 255, 255, 0.06);
+
+    border-bottom:
+      1px solid
+      rgba(255, 255, 255, 0.08);
+
+    box-shadow:
+      0 12px 24px
+      rgba(0, 0, 0, 0.22);
+
+    max-height:
+      calc(100vh - var(--nav-h));
+
+    max-height:
+      calc(100dvh - var(--nav-h));
+
+    overflow-y: auto;
+
+    -webkit-overflow-scrolling: touch;
+
+    z-index: 10001;
+  }
+
+
+  /*
+     Support BOTH class names.
+
+     This means the navigation works whether
+     main.js uses:
+
+       classList.toggle("open")
+
+     or:
+
+       classList.toggle("active")
+  */
+
+  .nav-links.open,
+  .nav-links.active {
+    display: flex;
+  }
+
+
+  .nav-links li {
+    width: 100%;
+  }
+
+
+  .nav-links a {
+    width: 100%;
+
+    padding: 14px 8px;
+
+    border-bottom:
+      1px solid
+      rgba(255, 255, 255, 0.06);
+
+    font-size: 0.72rem;
+
+    white-space: normal;
+  }
+
+
+  .nav-links li:last-child a {
+    border-bottom: 0;
+  }
+
+
+  .nav-toggle {
+    display: flex;
+  }
+
+}
+
+
+/* =============================================
+   iPAD MINI / SMALL TABLETS
+============================================= */
+
+@media (max-width: 900px) {
+
+  .nav {
+    padding-left: 18px;
+    padding-right: 18px;
+  }
+
+
+  .nav-logo {
+    font-size: 1.2rem;
+  }
+
+
+  .nav-logo-image {
+    width: 34px;
+    height: 34px;
+  }
+
+
+  .nav-links {
+    padding-left: 18px;
+    padding-right: 18px;
+  }
+
+}
+
+
+/* =============================================
+   PHONES
+============================================= */
+
+@media (max-width: 600px) {
+
+  :root {
+    --nav-h: 64px;
+  }
+
+
+  .nav {
+    height: var(--nav-h);
+
+    padding-left: 14px;
+    padding-right: 14px;
+  }
+
+
+  .nav-logo {
+    gap: 8px;
+
+    font-size: 1.05rem;
+  }
+
+
+  .nav-logo-image {
+    width: 32px;
+    height: 32px;
+  }
+
+
+  .nav-toggle {
+    width: 42px;
+    height: 42px;
+  }
+
+
+  .nav-toggle span {
+    width: 24px;
+  }
+
+
+  .nav-links {
+    top: var(--nav-h);
+
+    padding:
+      8px
+      14px
+      16px;
+
+    max-height:
+      calc(100vh - var(--nav-h));
+
+    max-height:
+      calc(100dvh - var(--nav-h));
+  }
+
+
+  .nav-links a {
+    padding: 13px 8px;
+
+    font-size: 0.68rem;
+  }
+
+}
+
+
+/* =============================================
+   VERY SMALL PHONES
+============================================= */
+
+@media (max-width: 380px) {
+
+  .nav {
+    padding-left: 10px;
+    padding-right: 10px;
+  }
+
+
+  .nav-logo {
+    font-size: 0.95rem;
+  }
+
+
+  .nav-logo-image {
+    width: 30px;
+    height: 30px;
+  }
+
+
+  .nav-toggle {
+    width: 40px;
+    height: 40px;
+  }
+
+
+  .nav-toggle span {
+    width: 22px;
+  }
+
+}
+
+
+/* =============================================
+   LANDSCAPE PHONES / SHORT SCREENS
+============================================= */
+
+@media
+(max-height: 500px)
+and
+(orientation: landscape) {
+
+  .nav-links a {
+    padding-top: 9px;
+    padding-bottom: 9px;
+  }
+
 }
 
 
