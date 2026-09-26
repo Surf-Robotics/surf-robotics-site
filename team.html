@@ -19,15 +19,21 @@
   <style>
     html,
     body {
-       margin: 0;
-       padding: 0;
+      margin: 0;
+      padding: 0;
       width: 100%;
-     }
+    }
 
-* {
-  box-sizing: border-box;
-}
-    
+    * {
+      box-sizing: border-box;
+    }
+
+    body.page-inner {
+      margin: 0 !important;
+      padding: 0 !important;
+    }
+
+
     /* ================================
        PASSWORD GATE
        ================================ */
@@ -35,7 +41,9 @@
     #password-overlay {
       position: fixed;
       inset: 0;
+
       width: 100%;
+
       min-height: 100vh;
       min-height: 100dvh;
 
@@ -43,19 +51,17 @@
       color: #ffffff;
 
       display: flex;
+
       justify-content: center;
       align-items: center;
 
       padding: 20px;
-      box-sizing: border-box;
 
       overflow-y: auto;
 
       z-index: 99999;
     }
 
-      position: fixed;
-      height: 100%;
 
     .password-card {
       background: #1e293b;
@@ -64,7 +70,6 @@
       max-width: 400px;
 
       padding: 2.5rem;
-      box-sizing: border-box;
 
       border-radius: 12px;
 
@@ -76,60 +81,83 @@
       font-family: 'DM Sans', sans-serif;
     }
 
+
     .password-heading {
       font-family: 'Bebas Neue', sans-serif;
+
       font-size: 3rem;
+
       letter-spacing: 3px;
+
       margin: 0 0 0.25rem;
+
       color: #ffffff;
     }
 
+
     .password-card h2 {
       font-family: 'DM Sans', sans-serif;
+
       font-size: 1.25rem;
+
       margin: 0 0 0.75rem;
+
       color: #94a3b8;
+
       font-weight: 500;
     }
 
+
     .password-card p {
       font-size: 0.9rem;
+
       color: #94a3b8;
+
       margin-bottom: 1.5rem;
     }
 
+
     .password-card input {
       width: 100%;
+
       padding: 0.75rem 1rem;
+
       margin-bottom: 1rem;
 
       border: 1px solid #334155;
+
       border-radius: 6px;
 
       background: #0f172a;
-      color: #fff;
+
+      color: #ffffff;
 
       font-size: 1rem;
 
-      box-sizing: border-box;
       outline: none;
     }
+
 
     .password-card input:focus {
       border-color: #38bdf8;
     }
 
+
     .password-card button {
       width: 100%;
+
       padding: 0.75rem;
 
       background: #0284c7;
+
       color: #ffffff;
 
       border: none;
+
       border-radius: 6px;
 
       font-size: 1rem;
+
       font-weight: bold;
 
       cursor: pointer;
@@ -137,48 +165,43 @@
       transition: background 0.2s;
     }
 
+
     .password-card button:hover {
       background: #0369a1;
     }
 
+
+    .password-card .back-button {
+      margin-top: 12px;
+
+      background: transparent;
+
+      color: #94a3b8;
+
+      border: 1px solid #334155;
+    }
+
+
+    .password-card .back-button:hover {
+      background: #334155;
+
+      color: #ffffff;
+    }
+
+
     .error-msg {
       color: #ef4444 !important;
+
       font-size: 0.85rem !important;
+
       font-weight: 700;
+
       margin-top: 0.75rem !important;
+
       margin-bottom: 0 !important;
+
       display: none;
     }
-    
-    function goBack() {
-  const previousPage = document.referrer;
-
-  // If the user came from another page on this site,
-  // return to that page.
-  if (
-    previousPage &&
-    previousPage !== window.location.href
-  ) {
-    window.location.href = previousPage;
-  } else {
-    // Fallback if they opened the login page directly
-    window.location.href = "/";
-  }
-}
-
-      .password-card .back-button {
-        margin-top: 12px;
-      
-        background: transparent;
-        color: #94a3b8;
-
-        border: 1px solid #334155;
-      }
-
-.password-card .back-button:hover {
-  background: #334155;
-  color: #ffffff;
-}
 
 
     /* ================================
@@ -190,30 +213,36 @@
       #password-overlay {
         min-height: 100vh;
         min-height: 100dvh;
+
         align-items: center;
       }
 
+
       .password-card {
         width: 100%;
+
         max-width: none;
+
         padding: 1.5rem;
       }
+
 
       .password-heading {
         font-size: 2.2rem;
       }
 
+
       .password-card h2 {
         font-size: 1.1rem;
       }
+
 
       .password-card input,
       .password-card button {
         font-size: 16px;
       }
-    }
 
-  
+    }
 
 
     /* ================================
@@ -222,88 +251,126 @@
 
     .nav {
       position: relative;
+
+      top: 0 !important;
+
+      margin: 0 !important;
+
       z-index: 5000;
     }
 
+
     .nav-toggle {
       display: none;
+
       flex-direction: column;
+
       justify-content: center;
+
       gap: 5px;
 
       background: none;
+
       border: none;
+
       cursor: pointer;
 
       position: relative;
+
       z-index: 5002;
     }
 
+
     .nav-toggle span {
       display: block;
+
       width: 28px;
+
       height: 3px;
+
       background: #ffffff;
+
       border-radius: 2px;
     }
-    
+
+
     @media (max-width: 1150px) {
 
-  .nav {
-    position: relative;
-    z-index: 10000;
-    overflow: visible !important;
-  }
+      .nav {
+        position: relative;
 
-  .nav-toggle {
-    display: flex;
-    position: relative;
-    z-index: 10002;
-  }
+        top: 0 !important;
 
-  .nav-links {
-    display: none !important;
+        margin: 0 !important;
 
-    position: fixed;
+        z-index: 10000;
 
-    top: 80px;
-    left: 0;
-    right: 0;
+        overflow: visible !important;
+      }
 
-    width: 100%;
 
-    flex-direction: column;
+      .nav-toggle {
+        display: flex;
 
-    background: #0f172a;
+        position: relative;
 
-    padding: 20px;
-    margin: 0;
+        z-index: 10002;
+      }
 
-    box-sizing: border-box;
 
-    max-height: calc(100dvh - 80px);
-    overflow-y: auto;
+      .nav-links {
+        display: none !important;
 
-    z-index: 10001;
-  }
+        position: fixed;
 
-  .nav-links.active {
-    display: flex !important;
-  }
+        top: 80px;
 
-  .nav-links li {
-    display: block;
-    width: 100%;
-  }
+        left: 0;
 
-  .nav-links a {
-    display: block;
-    width: 100%;
-    padding: 14px 16px;
-    box-sizing: border-box;
-  }
-}
+        right: 0;
+
+        width: 100%;
+
+        flex-direction: column;
+
+        background: #0f172a;
+
+        padding: 20px;
+
+        margin: 0;
+
+        max-height: calc(100dvh - 80px);
+
+        overflow-y: auto;
+
+        z-index: 10001;
+      }
+
+
+      .nav-links.active {
+        display: flex !important;
+      }
+
+
+      .nav-links li {
+        display: block;
+
+        width: 100%;
+      }
+
+
+      .nav-links a {
+        display: block;
+
+        width: 100%;
+
+        padding: 14px 16px;
+      }
+
+    }
+
   </style>
+
 </head>
 
 
@@ -344,6 +411,7 @@
           autocomplete="username"
         >
 
+
         <input
           type="password"
           id="password-input"
@@ -352,15 +420,20 @@
           autocomplete="current-password"
         >
 
+
         <button type="submit">
           Login
         </button>
+
 
         <button
           type="button"
           class="back-button"
           onclick="goBack()"
-          >Go Back</button>
+        >
+          Go Back
+        </button>
+
 
         <p
           id="error-msg"
@@ -419,11 +492,13 @@
         </a>
       </li>
 
+
       <li>
         <a href="about">
           About Us
         </a>
       </li>
+
 
       <li>
         <a href="season">
@@ -431,11 +506,13 @@
         </a>
       </li>
 
+
       <li>
         <a href="outreach">
           Outreach & Sponsors
         </a>
       </li>
+
 
       <li>
         <a href="robot">
@@ -443,11 +520,13 @@
         </a>
       </li>
 
+
       <li>
         <a href="blog">
           Blog
         </a>
       </li>
+
 
       <li>
         <a href="team" class="active">
@@ -496,6 +575,7 @@
           Materials Form
         </h2>
 
+
         <a
           href="https://forms.gle/PRzGaCD5s3dtkx6S6"
         >
@@ -517,9 +597,11 @@
           Spreadsheet
         </h2>
 
+
         <p>
           Track parts, progress, etc.
         </p>
+
 
         <a
           href="https://docs.google.com/spreadsheets/d/1sfOlqnhsd861YVN8hmgj8G03ao3Aqj_NejMODsH6tm0/edit?gid=652018483#gid=652018483"
@@ -547,6 +629,7 @@
               display: block;
             "
           >
+
 
           <figcaption
             style="
@@ -644,6 +727,7 @@
        ========================================= -->
 
   <script src="main.js"></script>
+
   <script src="blog.js"></script>
 
 
@@ -652,6 +736,28 @@
        ========================================= -->
 
   <script>
+
+    /*
+     * GO BACK
+     *
+     * Use browser history if there is a previous page.
+     * Otherwise send the user back to the home page.
+     */
+
+    function goBack() {
+
+      if (window.history.length > 1) {
+
+        window.history.back();
+
+      } else {
+
+        window.location.href = "/";
+
+      }
+
+    }
+
 
     /*
      * SHA-256 hashing
@@ -731,20 +837,37 @@
 
 
     /*
-     * Check whether the user is already
-     * authenticated during this session.
+     * Check whether user already authenticated
+     * during this browser tab/session.
      */
 
-    
-    window.addEventListener('DOMContentLoaded', () => {
-  if (sessionStorage.getItem('memberAuth') === 'true') {
-    document.getElementById('password-overlay').style.display = 'none';
-    document.body.classList.remove('login-locked');
-  }
-});
-      
+    window.addEventListener(
+      'DOMContentLoaded',
+      () => {
+
+        if (
+          sessionStorage.getItem('memberAuth') === 'true'
+        ) {
+
+          document
+            .getElementById('password-overlay')
+            .style
+            .display = 'none';
+
+
+          document
+            .body
+            .classList
+            .remove('login-locked');
+
+        }
+
+      }
+    );
+
+
     /*
-     * Login
+     * LOGIN
      */
 
     async function checkPassword(event) {
@@ -757,10 +880,12 @@
           'username-input'
         );
 
+
       const passwordInput =
         document.getElementById(
           'password-input'
         );
+
 
       const errorMsg =
         document.getElementById(
@@ -769,15 +894,16 @@
 
 
       /*
-       * Get email
+       * Get email.
        *
-       * trim() removes accidental spaces.
-       * toLowerCase() makes email matching
+       * trim() removes spaces.
+       * toLowerCase() makes matching
        * case-insensitive.
        */
 
       const emailText =
-        emailInput.value
+        emailInput
+          .value
           .trim()
           .toLowerCase();
 
@@ -833,19 +959,37 @@
        * must be correct.
        */
 
-      if (validEmail && validPassword) {
+      if (
+        validEmail &&
+        validPassword
+      ) {
 
-      sessionStorage.setItem('memberAuth', 'true');
+        sessionStorage.setItem(
+          'memberAuth',
+          'true'
+        );
 
-      document.getElementById('password-overlay').style.display = 'none';
 
-      document.body.classList.remove('login-locked');
+        document
+          .getElementById('password-overlay')
+          .style
+          .display = 'none';
+
+
+        document
+          .body
+          .classList
+          .remove('login-locked');
 
       } else {
 
-      errorMsg.style.display = 'block';
+        errorMsg.style.display = 'block';
 
-      document.getElementById('password-input').value = '';
+
+        document
+          .getElementById('password-input')
+          .value = '';
+
       }
 
     }
@@ -854,5 +998,5 @@
 
 
 </body>
-</html>
 
+</html>
