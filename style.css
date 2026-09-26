@@ -2659,3 +2659,119 @@ button.btn {
     padding: 8px 14px 16px;
   }
 }
+
+/* =====================================================
+   GLOBAL LOGO + BUTTON REPAIR
+   Keep this as the final block in style.css.
+===================================================== */
+
+/* Logo: locks its displayed size on every page */
+.nav .nav-logo > img.nav-logo-image,
+.nav-logo img.nav-logo-image {
+  display: block !important;
+  flex: 0 0 34px !important;
+  width: 34px !important;
+  height: 34px !important;
+  min-width: 34px !important;
+  min-height: 34px !important;
+  max-width: 34px !important;
+  max-height: 34px !important;
+  object-fit: contain !important;
+}
+
+/* Shared CTA buttons */
+.btn,
+a.btn,
+button.btn,
+main button[type="submit"]:not(.nav-toggle):not(.filter-btn):not(.modal-close) {
+  display: inline-flex !important;
+  align-items: center;
+  justify-content: center;
+  min-height: 44px;
+  padding: 12px 24px;
+  border: 2px solid transparent;
+  border-radius: 6px;
+  background: var(--sand);
+  border-color: var(--sand);
+  color: var(--teal) !important;
+  font-family: "Space Mono", monospace;
+  font-size: 0.78rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  line-height: 1;
+  text-align: center;
+  text-decoration: none !important;
+  text-transform: uppercase;
+  cursor: pointer;
+  appearance: none;
+  -webkit-appearance: none;
+  transition: transform 0.2s ease, background 0.2s ease,
+              border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.btn:hover,
+a.btn:hover,
+main button[type="submit"]:not(.nav-toggle):not(.filter-btn):not(.modal-close):hover {
+  background: var(--sand-dark);
+  border-color: var(--sand-dark);
+  color: var(--teal) !important;
+  transform: translateY(-2px);
+  box-shadow: var(--shadow);
+}
+
+.btn-ghost {
+  background: transparent !important;
+  border-color: rgba(255, 255, 255, 0.55) !important;
+  color: var(--white) !important;
+}
+
+.btn-ghost:hover {
+  background: transparent !important;
+  border-color: var(--sand) !important;
+  color: var(--sand) !important;
+}
+
+/* Existing Google Form / Sheet action links become buttons automatically */
+main a[href^="https://forms.gle/"],
+main a[href*="docs.google.com/forms/"],
+main a[href*="docs.google.com/spreadsheets/"] {
+  display: inline-flex !important;
+  align-items: center;
+  justify-content: center;
+  min-height: 44px;
+  padding: 12px 24px;
+  border: 2px solid var(--sand);
+  border-radius: 6px;
+  background: var(--sand);
+  color: var(--teal) !important;
+  font-family: "Space Mono", monospace;
+  font-size: 0.78rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  line-height: 1;
+  text-decoration: none !important;
+  text-transform: uppercase;
+  transition: transform 0.2s ease, background 0.2s ease;
+}
+
+main a[href^="https://forms.gle/"]:hover,
+main a[href*="docs.google.com/forms/"]:hover,
+main a[href*="docs.google.com/spreadsheets/"]:hover {
+  background: var(--sand-dark);
+  border-color: var(--sand-dark);
+  color: var(--teal) !important;
+  transform: translateY(-2px);
+}
+
+@media (max-width: 600px) {
+  .nav .nav-logo > img.nav-logo-image,
+  .nav-logo img.nav-logo-image {
+    flex-basis: 30px !important;
+    width: 30px !important;
+    height: 30px !important;
+    min-width: 30px !important;
+    min-height: 30px !important;
+    max-width: 30px !important;
+    max-height: 30px !important;
+  }
+}
