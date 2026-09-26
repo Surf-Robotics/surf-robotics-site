@@ -129,7 +129,7 @@ p { color: var(--text-mid); }
 
   gap: 26px;
 
-  margin: 0 0 0 auto;
+  margin: 0 0 0 24px;
   padding: 0;
 
   list-style: none;
