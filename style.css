@@ -2480,3 +2480,182 @@ button.btn-ghost:hover {
 /* =========================================================
    END FINAL RESPONSIVE NAVIGATION FIX
    ========================================================= */
+
+/* =====================================================
+   FINAL NAVIGATION + BUTTON FIX
+   Keep this block at the very end of style.css.
+===================================================== */
+
+.nav {
+  height: var(--nav-h);
+  min-height: var(--nav-h);
+  padding: 0 32px;
+  background: var(--bg-dark);
+  overflow: visible !important;
+}
+
+.nav-logo {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  color: var(--sand);
+  text-decoration: none;
+  white-space: nowrap;
+}
+
+.nav-logo-image {
+  display: block !important;
+  flex: 0 0 38px;
+  width: 38px !important;
+  height: 38px !important;
+  min-width: 38px;
+  min-height: 38px;
+  max-width: 38px !important;
+  max-height: 38px !important;
+  object-fit: contain;
+}
+
+/* Real buttons and links explicitly marked as buttons */
+.btn,
+a.btn,
+button.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 44px;
+  padding: 11px 22px;
+  border: 2px solid transparent;
+  border-radius: 6px;
+  font: 700 0.78rem/1 'Space Mono', monospace;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  text-decoration: none;
+  cursor: pointer;
+  appearance: none;
+  -webkit-appearance: none;
+  transition: transform var(--transition), background var(--transition),
+              border-color var(--transition), color var(--transition),
+              box-shadow var(--transition);
+}
+
+.btn-primary {
+  background: var(--sand);
+  border-color: var(--sand);
+  color: var(--teal);
+}
+
+.btn-primary:hover,
+.btn-primary:focus-visible {
+  background: var(--sand-dark);
+  border-color: var(--sand-dark);
+  color: var(--teal);
+  transform: translateY(-2px);
+  box-shadow: var(--shadow);
+}
+
+.btn-ghost {
+  background: transparent;
+  border-color: rgba(255, 255, 255, 0.55);
+  color: var(--white);
+}
+
+.btn-ghost:hover,
+.btn-ghost:focus-visible {
+  border-color: var(--sand);
+  color: var(--sand);
+}
+
+.btn:focus-visible,
+.nav-toggle:focus-visible {
+  outline: 3px solid var(--sand);
+  outline-offset: 3px;
+}
+
+/* Tablet, iPad Pro, iPad mini, and phones */
+@media (max-width: 1200px) {
+  .nav {
+    padding: 0 20px;
+  }
+
+  .nav-logo-image {
+    flex-basis: 36px;
+    width: 36px !important;
+    height: 36px !important;
+    min-width: 36px;
+    min-height: 36px;
+    max-width: 36px !important;
+    max-height: 36px !important;
+  }
+
+  .nav-toggle {
+    display: inline-flex !important;
+  }
+
+  .nav-links {
+    display: none !important;
+    position: fixed;
+    top: var(--nav-h);
+    left: 0;
+    right: 0;
+    width: 100%;
+    margin: 0;
+    padding: 10px 20px 20px;
+    flex-direction: column;
+    align-items: stretch;
+    gap: 0;
+    background: var(--bg-dark);
+    border-top: 1px solid rgba(255, 255, 255, 0.08);
+    box-shadow: 0 12px 24px rgba(0, 0, 0, 0.25);
+    max-height: calc(100dvh - var(--nav-h));
+    overflow-y: auto;
+  }
+
+  .nav-links.open,
+  .nav-links.active {
+    display: flex !important;
+  }
+
+  .nav-links li,
+  .nav-links a {
+    width: 100%;
+  }
+
+  .nav-links a {
+    display: block;
+    padding: 14px 8px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  }
+
+  .nav-links li:last-child a {
+    border-bottom: 0;
+  }
+}
+
+@media (max-width: 600px) {
+  :root {
+    --nav-h: 64px;
+  }
+
+  .nav {
+    padding: 0 14px;
+  }
+
+  .nav-logo {
+    gap: 8px;
+    font-size: 1.05rem;
+  }
+
+  .nav-logo-image {
+    flex-basis: 32px;
+    width: 32px !important;
+    height: 32px !important;
+    min-width: 32px;
+    min-height: 32px;
+    max-width: 32px !important;
+    max-height: 32px !important;
+  }
+
+  .nav-links {
+    padding: 8px 14px 16px;
+  }
+}
