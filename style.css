@@ -118,17 +118,6 @@ p { color: var(--text-mid); }
 }
 
 
-.nav-logo-image {
-  width: 36px;
-  height: 36px;
-
-  object-fit: contain;
-
-  display: block;
-
-  flex-shrink: 0;
-}
-
 
 /* =============================================
    DESKTOP NAVIGATION LINKS
