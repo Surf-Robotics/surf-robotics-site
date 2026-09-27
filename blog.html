@@ -64,6 +64,14 @@
       border-radius: 8px;
     }
 
+    .blog-video {
+      display: block;
+      width: 100%;
+      height: auto;
+      margin-top: 16px;
+      border-radius: 8px;
+    }
+
     /* Read more section */
     .blog-details {
       margin-top: 18px;
@@ -253,6 +261,11 @@
               We merged apriltag tracking and driving codes together. It worked.
             </p>
 
+            <video class="blog-video" controls preload="metadata">
+            <source src="09262026ApriltagTracking.MOV" type="video/mov" />
+              Your browser does not support this video.
+            </video>
+            
             <details class="blog-details">
               <summary>
                 <span class="label-open">Read more</span>
@@ -260,7 +273,8 @@
               </summary>
 
               <p>
-                The next step is to work on basic autonomous codes. We will share updates as we go on.
+                The next step is to work on basic autonomous codes. We will share updates as we go on. The video only contains Apriltag tracking because
+                the field has too less space for driving.
               </p>
             </details>
 
