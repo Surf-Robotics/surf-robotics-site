@@ -125,6 +125,101 @@
       margin-bottom: 0;
     }
 
+    /* Search and filtering controls */
+    .blog-filters {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 16px;
+      margin: 28px 0 12px;
+      padding: 20px;
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      background: var(--white);
+      box-shadow: var(--shadow-sm);
+    }
+
+    .blog-filter-field {
+      display: grid;
+      gap: 6px;
+      min-width: 0;
+      color: var(--text);
+      font-family: "Space Mono", monospace;
+      font-size: 0.72rem;
+      font-weight: 700;
+    }
+
+    .blog-filter-field input,
+    .blog-filter-field select {
+      width: 100%;
+      min-height: 42px;
+      padding: 8px 12px;
+      border: 1px solid var(--border);
+      border-radius: var(--radius-sm);
+      background: var(--white);
+      color: var(--text);
+      font: 400 0.95rem "DM Sans", sans-serif;
+    }
+
+    .blog-filter-field :is(input, select):focus-visible,
+    .blog-filter-reset:focus-visible {
+      outline: 3px solid var(--teal-light);
+      outline-offset: 2px;
+    }
+
+    .blog-date-fields {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 16px;
+      grid-column: 1 / -1;
+    }
+
+    .blog-date-fields[hidden],
+    .blog-empty[hidden],
+    .blog-card[hidden] {
+      display: none !important;
+    }
+
+    .blog-filter-actions {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      grid-column: 1 / -1;
+      flex-wrap: wrap;
+    }
+
+    .blog-filter-reset {
+      padding: 8px 14px;
+      border: 1px solid var(--teal);
+      border-radius: var(--radius-sm);
+      background: var(--white);
+      color: var(--teal);
+      font: 700 0.78rem "Space Mono", monospace;
+      cursor: pointer;
+    }
+
+    .blog-filter-reset:hover {
+      background: var(--teal-pale);
+    }
+
+    .blog-results,
+    .blog-empty {
+      color: var(--text-mid);
+      font-family: "Space Mono", monospace;
+      font-size: 0.78rem;
+    }
+
+    .blog-empty {
+      margin: 20px 0;
+    }
+
+    @media (max-width: 600px) {
+      .blog-filters,
+      .blog-date-fields {
+        grid-template-columns: 1fr;
+      }
+    }
+
     @media (max-width: 600px) {
       .page-blog .page-hero {
         padding: 28px 0 24px;
@@ -209,6 +304,58 @@
           From the workshop.
         </h2>
 
+        <form class="blog-filters" id="blog-filters" role="search" aria-label="Search and filter blog posts">
+          <label class="blog-filter-field" for="blog-search">
+            Search title or text
+            <input id="blog-search" type="search" placeholder="Search posts…" autocomplete="off">
+          </label>
+
+          <label class="blog-filter-field" for="blog-topic">
+            Topic
+            <select id="blog-topic">
+              <option value="all">All topics</option>
+              <option value="software">SOFTWARE</option>
+              <option value="hardware">HARDWARE</option>
+              <option value="design">DESIGN</option>
+              <option value="website">WEBSITE</option>
+            </select>
+          </label>
+
+          <label class="blog-filter-field" for="blog-date-mode">
+            Date
+            <select id="blog-date-mode">
+              <option value="all">Any date</option>
+              <option value="day">Specific day</option>
+              <option value="range">Date range</option>
+            </select>
+          </label>
+
+          <div class="blog-date-fields" id="blog-day-fields" hidden>
+            <label class="blog-filter-field" for="blog-day">
+              Day
+              <input id="blog-day" type="date" disabled>
+            </label>
+          </div>
+
+          <div class="blog-date-fields" id="blog-range-fields" hidden>
+            <label class="blog-filter-field" for="blog-from">
+              From
+              <input id="blog-from" type="date" disabled>
+            </label>
+            <label class="blog-filter-field" for="blog-to">
+              To
+              <input id="blog-to" type="date" disabled>
+            </label>
+          </div>
+
+          <div class="blog-filter-actions">
+            <p class="blog-results" id="blog-results" role="status" aria-live="polite"></p>
+            <button class="blog-filter-reset" type="reset">Clear filters</button>
+          </div>
+        </form>
+
+        <p class="blog-empty" id="blog-empty" role="status" hidden></p>
+
         <div class="cards-grid blog-grid">
 
 
@@ -222,7 +369,7 @@
 
             <div class="blog-meta">
               <span class="blog-category">Hardware</span>
-              <time datetime="2026-09-10">Saturday, October 17th, 2026</time>
+              <time datetime="2026-10-17">Saturday, October 17th, 2026</time>
             </div>
 
             <h3 id="post-return">Shooter Prototype</h3>
@@ -259,7 +406,7 @@
 
             <div class="blog-meta">
               <span class="blog-category">Hardware</span>
-              <time datetime="2026-09-10">Saturday, October 10th, 2026</time>
+              <time datetime="2026-10-10">Saturday, October 10th, 2026</time>
             </div>
 
             <h3 id="post-return">Drive Train Assembly</h3>
@@ -291,7 +438,7 @@
 
             <div class="blog-meta">
               <span class="blog-category">Software</span>
-              <time datetime="2026-09-10">Saturday, October 3rd, 2026</time>
+              <time datetime="2026-10-03">Saturday, October 3rd, 2026</time>
             </div>
 
             <h3 id="post-return">Basic Autonomous Movement Done</h3>
@@ -322,7 +469,7 @@
 
             <div class="blog-meta">
               <span class="blog-category">Design</span>
-              <time datetime="2026-09-10">Saturday, October 3rd, 2026</time>
+              <time datetime="2026-10-03">Saturday, October 3rd, 2026</time>
             </div>
 
             <h3 id="post-return">Design is Closer to Done</h3>
@@ -353,7 +500,7 @@
 
             <div class="blog-meta">
               <span class="blog-category">Design</span>
-              <time datetime="2026-09-10">Saturday, September 26, 2026</time>
+              <time datetime="2026-09-26">Saturday, September 26, 2026</time>
             </div>
 
             <h3 id="post-return">Drive Train Design Restarted</h3>
@@ -385,7 +532,7 @@
 
             <div class="blog-meta">
               <span class="blog-category">Software</span>
-              <time datetime="2026-09-10">Saturday, September 26, 2026</time>
+              <time datetime="2026-09-26">Saturday, September 26, 2026</time>
             </div>
 
             <h3 id="post-return">Apriltag Tracking and Driving Merged</h3>
@@ -423,7 +570,7 @@
 
             <div class="blog-meta">
               <span class="blog-category">Hardware</span>
-              <time datetime="2026-09-10">Saturday, September 26, 2026</time>
+              <time datetime="2026-09-26">Saturday, September 26, 2026</time>
             </div>
 
             <h3 id="post-return">Field Setup Arrived</h3>
@@ -462,7 +609,7 @@
 
             <div class="blog-meta">
               <span class="blog-category">Design</span>
-              <time datetime="2026-09-10">Thursday, September 24, 2026</time>
+              <time datetime="2026-09-24">Thursday, September 24, 2026</time>
             </div>
 
             <h3 id="post-return">3D Design Delayed</h3>
@@ -494,7 +641,7 @@
 
             <div class="blog-meta">
               <span class="blog-category">Software</span>
-              <time datetime="2026-09-10">Saturday, September 19, 2026</time>
+              <time datetime="2026-09-19">Saturday, September 19, 2026</time>
             </div>
 
             <h3 id="post-return">Apriltag Positioning Update</h3>
@@ -526,7 +673,7 @@
 
             <div class="blog-meta">
               <span class="blog-category">Design</span>
-              <time datetime="2026-09-10">Saturday, September 19, 2026</time>
+              <time datetime="2026-09-19">Saturday, September 19, 2026</time>
             </div>
 
             <h3 id="post-return">New Robot Master Sketch</h3>
@@ -557,7 +704,7 @@
 
             <div class="blog-meta">
               <span class="blog-category">Hardware</span>
-              <time datetime="2026-09-10">Saturday, September 19, 2026</time>
+              <time datetime="2026-09-19">Saturday, September 19, 2026</time>
             </div>
 
             <h3 id="post-return">New Drive Train</h3>
@@ -731,6 +878,90 @@
   </footer>
 
   <script src="main.js"></script>
+  <script>
+// Filters the blog cards already present in blog.html, including collapsed "Read more" text.
+(() => {
+  "use strict";
+
+  const form = document.getElementById("blog-filters");
+  const grid = document.querySelector(".blog-grid");
+  if (!form || !grid) return;
+
+  const search = document.getElementById("blog-search");
+  const topic = document.getElementById("blog-topic");
+  const dateMode = document.getElementById("blog-date-mode");
+  const day = document.getElementById("blog-day");
+  const from = document.getElementById("blog-from");
+  const to = document.getElementById("blog-to");
+  const dayFields = document.getElementById("blog-day-fields");
+  const rangeFields = document.getElementById("blog-range-fields");
+  const count = document.getElementById("blog-results");
+  const empty = document.getElementById("blog-empty");
+
+  const normalize = (value) => value.replace(/\s+/g, " ").trim().toLocaleLowerCase();
+  const posts = Array.from(grid.querySelectorAll(".blog-card")).map((card) => ({
+    card,
+    title: normalize(card.querySelector("h3")?.textContent || ""),
+    body: normalize(Array.from(card.querySelectorAll(":scope > p, .blog-details p"))
+      .map((paragraph) => paragraph.textContent).join(" ")),
+    topic: normalize(card.querySelector(".blog-category")?.textContent || ""),
+    date: card.querySelector("time[datetime]")?.getAttribute("datetime") || ""
+  }));
+
+  function applyFilters() {
+    const query = normalize(search.value);
+    const selectedTopic = normalize(topic.value);
+    const mode = dateMode.value;
+    const invalidRange = mode === "range" && from.value && to.value && from.value > to.value;
+    let visible = 0;
+
+    for (const post of posts) {
+      const matchesText = !query || post.title.includes(query) || post.body.includes(query);
+      const matchesTopic = selectedTopic === "all" || post.topic === selectedTopic;
+      const matchesDate = mode === "all" ||
+        (mode === "day" && (!day.value || post.date === day.value)) ||
+        (mode === "range" && ((!from.value && !to.value) ||
+          (!!post.date && (!from.value || post.date >= from.value) &&
+            (!to.value || post.date <= to.value))));
+      const show = !invalidRange && matchesText && matchesTopic && matchesDate;
+      post.card.hidden = !show;
+      if (show) visible++;
+    }
+
+    count.textContent = visible + (visible === 1 ? " post" : " posts") + " found";
+    empty.hidden = visible !== 0;
+    empty.textContent = invalidRange
+      ? "The end date must be on or after the start date."
+      : "No posts match these filters. Try another search, date, or topic.";
+  }
+
+  function updateDateFields() {
+    dayFields.hidden = dateMode.value !== "day";
+    rangeFields.hidden = dateMode.value !== "range";
+    day.disabled = dateMode.value !== "day";
+    from.disabled = dateMode.value !== "range";
+    to.disabled = dateMode.value !== "range";
+    applyFilters();
+  }
+
+  form.addEventListener("submit", (event) => event.preventDefault());
+  form.addEventListener("input", applyFilters);
+  topic.addEventListener("change", applyFilters);
+  dateMode.addEventListener("change", updateDateFields);
+  form.addEventListener("reset", (event) => {
+    event.preventDefault();
+    search.value = "";
+    topic.value = "all";
+    dateMode.value = "all";
+    day.value = "";
+    from.value = "";
+    to.value = "";
+    updateDateFields();
+  });
+
+  updateDateFields();
+})();
+  </script>
 
 </body>
 
