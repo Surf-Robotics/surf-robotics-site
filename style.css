@@ -673,7 +673,7 @@ button.btn-link {
 .btn-link:hover,
 a.btn-link:hover,
 button.btn-link:hover {
-  color: var(--sand);
+  color: var(--coral);
 
   text-decoration: none !important;
 }
@@ -2808,28 +2808,28 @@ button.btn {
 .btn-primary,
 a.btn-primary,
 button.btn-primary {
-  background: transparent !important;
+  background: var(--sand) !important;
   border-color: var(--sand) !important;
-  color: var(--sand) !important;
+  color: var(--teal) !important;
 }
 
 .btn-primary:hover,
 a.btn-primary:hover,
 button.btn-primary:hover {
-  background: var(--sand) !important;
+  background: var(--sand-dark) !important;
   border-color: var(--sand) !important;
   color: var(--teal) !important;
   transform: translateY(-2px);
   box-shadow: var(--shadow);
 }
 
-/* White outlined buttons */
+/* White outlined buttons aka ghost buttons */
 .btn-ghost,
 a.btn-ghost,
 button.btn-ghost {
   background: transparent !important;
-  border-color: rgba(255, 255, 255, 0.75) !important;
-  color: #ffffff !important;
+  border-color: var(--sand-dark) !important;
+  color: var(--sand-dark) !important;
 }
 
 .btn-ghost:hover,
@@ -2845,8 +2845,8 @@ button.btn-ghost:hover {
 .hero-actions a.btn-ghost[href*="youtube.com"],
 .hero-actions a[href*="youtube.com"] {
   background: transparent !important;
-  border: 2px solid #ffffff !important;
-  color: #ffffff !important;
+  border: 2px solid var(--sand) !important;
+  color: var(--sand) !important;
 }
 
 .hero-actions a.btn-ghost[href*="youtube.com"]:hover,
