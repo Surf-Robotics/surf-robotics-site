@@ -588,7 +588,7 @@ a.btn-primary,
 button.btn-primary {
   background: var(--sand);
 
-  color: var(--sand);
+  color: var(--teal);
 
   border-color: var(--sand);
 
@@ -620,7 +620,7 @@ a.btn-ghost,
 button.btn-ghost {
   background: transparent;
 
-  color: var(--white);
+  color: var(--sand);
 
   border-color: rgba(255, 255, 255, 0.4);
 
@@ -673,7 +673,7 @@ button.btn-link {
 .btn-link:hover,
 a.btn-link:hover,
 button.btn-link:hover {
-  color: var(--coral);
+  color: var(--sand);
 
   text-decoration: none !important;
 }
