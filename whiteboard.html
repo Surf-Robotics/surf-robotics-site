@@ -191,6 +191,36 @@ dialog h2 { font-family: 'Bebas Neue', 'Arial Narrow', sans-serif; font-size: 32
   .page-whiteboard .nav { display: none !important; }
 }
 
+/* A clean canvas for screen mirroring, with editing tools available on demand. */
+.presentation-trigger { display: inline-flex; align-items: center; gap: 7px; }
+.presentation-trigger svg { width: 17px; height: 17px; fill: none; stroke: currentColor; stroke-width: 1.8; stroke-linecap: round; }
+.presentation-controls { position: fixed; right: 16px; bottom: 16px; z-index: 20000; display: flex; align-items: center; gap: 8px; padding: 8px; border: 1px solid #50646d; border-radius: 8px; background: #0d1f28ed; box-shadow: 0 4px 24px #0002; transition: opacity .2s, transform .2s; }
+.presentation-controls button { min-height: 40px; font-size: 11px; }
+.presentation-controls .presentation-exit { background: var(--gold); border-color: var(--gold); }
+.presentation-controls small { padding: 0 4px; color: #c6d5dc; font: 10px 'Space Mono', monospace; white-space: nowrap; }
+body.page-whiteboard.is-presenting { padding: 0 !important; background: #fff; }
+.is-presenting .nav, .is-presenting .app-header, .is-presenting .toolbar,
+.is-presenting .inspector, .is-presenting .canvas-footer, .is-presenting .welcome,
+.is-presenting .empty-hint { display: none !important; }
+.is-presenting .app-main, .is-presenting .workspace, .is-presenting .canvas-region { width: 100%; height: 100%; min-height: 0; }
+.is-presenting .board-scroll { display: grid; align-items: center; justify-items: center; padding: 0; background: #fff; overflow: hidden; }
+.is-presenting .board-wrap { margin: 0; box-shadow: none; }
+.is-presenting:not(.presentation-with-tools) #board { cursor: default; pointer-events: none; }
+.is-presenting:not(.presentation-with-tools) #overlay { display: none; }
+.is-presenting.presentation-with-tools .toolbar { display: flex !important; }
+.is-presenting.presentation-with-tools .inspector { display: block !important; }
+.is-presenting.presentation-with-tools .board-scroll { display: block; overflow: auto; padding: 16px; background: #ebece5; }
+.is-presenting.presentation-with-tools .board-wrap { margin: 0 auto; }
+.is-presenting.presentation-controls-hidden .presentation-controls { opacity: 0; pointer-events: none; transform: translateY(8px); }
+.is-presenting .presentation-controls:focus-within { opacity: 1; pointer-events: auto; transform: none; }
+@media(max-width:800px) {
+  .presentation-trigger { padding: 7px 9px; font-size: 10px; }
+  .is-presenting.presentation-with-tools .inspector { display: flex !important; }
+  .presentation-controls { right: 8px; bottom: 8px; gap: 6px; padding: 6px; }
+  .presentation-controls small { display: none; }
+}
+@media print { .presentation-controls, .presentation-trigger { display: none !important; } }
+
   </style>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -236,6 +266,7 @@ dialog h2 { font-family: 'Bebas Neue', 'Arial Narrow', sans-serif; font-size: 32
         <button id="redo" class="icon-button" title="Redo (Ctrl/Cmd+Shift+Z)" aria-label="Redo" disabled>↷</button>
       </div>
       <span class="toolbar-spacer"></span>
+      <button id="presentBoard" class="presentation-trigger" aria-pressed="false" aria-controls="boardScroll" title="Present your sketch fullscreen (F)"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 3H3v5M16 3h5v5M3 16v5h5M21 16v5h-5"/></svg><span>Present</span></button>
       <label class="zoom-label">Zoom<select id="zoom"><option value="fit">Fit</option><option value="0.5">50%</option><option value="0.75">75%</option><option value="1">100%</option><option value="1.25">125%</option><option value="1.5">150%</option><option value="2">200%</option></select></label>
       <button id="clearBoard" class="quiet-danger">Clear board</button>
     </section>
@@ -286,6 +317,7 @@ dialog h2 { font-family: 'Bebas Neue', 'Arial Narrow', sans-serif; font-size: 32
       </section>
     </div>
   </main>
+  <div id="presentationControls" class="presentation-controls" role="group" aria-label="Presentation controls" hidden><small>Esc to exit</small><button id="presentationTools" aria-pressed="false">Show tools</button><button id="exitPresentation" class="presentation-exit">Exit fullscreen</button></div>
   <div id="welcome" class="welcome" role="status"><span aria-hidden="true">✦</span><p>Congrats! You have found the SURF Robotics whiteboard page.</p></div>
   <div id="toast" class="toast" role="status" hidden></div>
   <dialog id="confirmDialog"><form method="dialog"><span class="eyebrow">A FRESH START</span><h2 id="confirmTitle">Clear the whiteboard?</h2><p id="confirmMessage">You can undo this if you change your mind.</p><div class="dialog-actions"><button value="cancel">Cancel</button><button value="confirm" class="accent">Continue</button></div></form></dialog>
@@ -311,9 +343,96 @@ dialog h2 { font-family: 'Bebas Neue', 'Arial Narrow', sans-serif; font-size: 32
   };
   let objects = [], selected = new Set(), tool = 'pen', gesture = null, scale = 1, space = false;
   let editing = null, past = [], future = [], saveTimer, toastTimer;
+  let presenting = false, presentationTools = false, enteredFullscreen = false, controlsTimer, editView = null;
   let color = '#0a4a5e', strokeWidth = 4, fontSize = 32, font = 'sans', bold = false;
   const board = $('board'), artwork = $('artwork'), overlay = $('overlay'), scroll = $('boardScroll');
   const editor = $('textEditor'), measure = document.createElement('canvas').getContext('2d');
+  const presentationControls = $('presentationControls');
+  const fullscreenElement = () => document.fullscreenElement || document.webkitFullscreenElement;
+  function revealPresentationControls() {
+    if (!presenting) return;
+    document.body.classList.remove('presentation-controls-hidden');
+    clearTimeout(controlsTimer);
+    controlsTimer = setTimeout(() => {
+      if (presenting && !presentationControls.contains(document.activeElement)) document.body.classList.add('presentation-controls-hidden');
+    }, 2600);
+  }
+  function setPresentationTools(show) {
+    finishText(); cancelGesture(); presentationTools = show;
+    document.body.classList.toggle('presentation-with-tools', show);
+    $('presentationTools').textContent = show ? 'Hide tools' : 'Show tools';
+    $('presentationTools').setAttribute('aria-pressed', String(show));
+    requestAnimationFrame(resizeBoard); revealPresentationControls();
+  }
+  async function startPresentation() {
+    if (presenting) return;
+    finishText(); cancelGesture(); closeMenu(); space = false; board.style.cursor = '';
+    editView = {zoom: $('zoom').value, left: scroll.scrollLeft, top: scroll.scrollTop};
+    presenting = true; presentationTools = false; enteredFullscreen = false;
+    document.body.classList.add('is-presenting');
+    document.body.classList.remove('presentation-with-tools');
+    presentationControls.hidden = false;
+    $('presentBoard').setAttribute('aria-pressed', 'true');
+    $('presentationTools').textContent = 'Show tools';
+    $('presentationTools').setAttribute('aria-pressed', 'false');
+    $('zoom').value = 'fit'; scroll.scrollLeft = scroll.scrollTop = 0;
+    scroll.focus({preventScroll: true});
+    requestAnimationFrame(resizeBoard); revealPresentationControls();
+    const request = document.documentElement.requestFullscreen || document.documentElement.webkitRequestFullscreen;
+    if (request && !fullscreenElement()) {
+      try {
+        await request.call(document.documentElement);
+        enteredFullscreen = fullscreenElement() === document.documentElement;
+        if (!presenting && enteredFullscreen) await leaveNativeFullscreen();
+      } catch (error) {
+        console.info('SURF fullscreen request unavailable:', error.name, error.message);
+        if (presenting) toast('Presentation mode is ready. Use your browser’s fullscreen control for edge-to-edge display.');
+      }
+    }
+  }
+  async function leaveNativeFullscreen() {
+    const exit = document.exitFullscreen || document.webkitExitFullscreen;
+    if (exit && fullscreenElement() === document.documentElement) {
+      try { await exit.call(document); } catch { /* The browser may already be exiting. */ }
+    }
+  }
+  async function stopPresentation(exitNative = true) {
+    if (!presenting) return;
+    finishText(); cancelGesture();
+    const shouldExit = enteredFullscreen && exitNative;
+    presenting = false; presentationTools = false; enteredFullscreen = false;
+    clearTimeout(controlsTimer);
+    document.body.classList.remove('is-presenting', 'presentation-with-tools', 'presentation-controls-hidden');
+    presentationControls.hidden = true;
+    $('presentBoard').setAttribute('aria-pressed', 'false');
+    if (editView) $('zoom').value = editView.zoom;
+    if (shouldExit) await leaveNativeFullscreen();
+    requestAnimationFrame(() => {
+      resizeBoard();
+      if (editView) { scroll.scrollLeft = editView.left; scroll.scrollTop = editView.top; }
+      $('presentBoard').focus({preventScroll: true});
+    });
+  }
+  function onFullscreenChange() {
+    if (!presenting) return;
+    if (fullscreenElement() === document.documentElement) enteredFullscreen = true;
+    else if (enteredFullscreen) stopPresentation(false);
+    requestAnimationFrame(resizeBoard);
+  }
+  document.addEventListener('fullscreenchange', onFullscreenChange);
+  document.addEventListener('webkitfullscreenchange', onFullscreenChange);
+  $('presentBoard').addEventListener('click', () => presenting ? stopPresentation() : startPresentation());
+  $('exitPresentation').addEventListener('click', () => stopPresentation());
+  $('presentationTools').addEventListener('click', () => setPresentationTools(!presentationTools));
+  document.addEventListener('pointermove', revealPresentationControls, {passive: true});
+  document.addEventListener('pointerdown', revealPresentationControls, {passive: true});
+  document.addEventListener('keydown', e => {
+    if (presenting && e.key === 'Escape') { e.preventDefault(); e.stopImmediatePropagation(); stopPresentation(); return; }
+    const typing = e.target.closest('input,textarea,select,[contenteditable="true"]');
+    if (!typing && !e.ctrlKey && !e.metaKey && !e.altKey && e.key.toLowerCase() === 'f' && !$('confirmDialog').open) {
+      e.preventDefault(); e.stopImmediatePropagation(); presenting ? stopPresentation() : startPresentation();
+    } else if (presenting && e.key === 'Tab') revealPresentationControls();
+  }, true);
   // Match the site's responsive navigation without loading unrelated page effects.
   const navToggle = $('navToggle'), navLinks = $('navLinks');
   function closeMenu() {
@@ -540,6 +659,7 @@ dialog h2 { font-family: 'Bebas Neue', 'Arial Narrow', sans-serif; font-size: 32
     o.x2=o.x1+dx;o.y2=o.y1+dy;
   }
   board.addEventListener('pointerdown',e=>{
+    if(presenting&&!presentationTools)return;
     if(e.button!==0 || !e.isPrimary || gesture)return;
     e.preventDefault();finishText();scroll.focus({preventScroll:true});
     const p=point(e),before=snapshot();board.setPointerCapture(e.pointerId);
@@ -594,7 +714,7 @@ dialog h2 { font-family: 'Bebas Neue', 'Arial Narrow', sans-serif; font-size: 32
   board.addEventListener('pointerup',finishGesture);
   board.addEventListener('pointercancel',cancelGesture);
   board.addEventListener('lostpointercapture',()=>{if(gesture)finishGesture();});
-  board.addEventListener('dblclick',e=>{if(tool!=='select'&&tool!=='text')return;const o=hit(point(e));if(o?.type==='text'){e.preventDefault();openText(o,point(e));}});
+  board.addEventListener('dblclick',e=>{if((presenting&&!presentationTools)||(tool!=='select'&&tool!=='text'))return;const o=hit(point(e));if(o?.type==='text'){e.preventDefault();openText(o,point(e));}});
 
   function openText(o,p) {
     finishText();if(!o&&objects.length>=MAX_OBJECTS){toast('This board is full.');return;}
@@ -624,8 +744,8 @@ dialog h2 { font-family: 'Bebas Neue', 'Arial Narrow', sans-serif; font-size: 32
   document.addEventListener('pointerdown',e=>{if(editing&&!e.target.closest('.inspector')&&e.target!==editor&&e.target!==board&&!board.contains(e.target))finishText();});
   function resizeBoard() {
     const padding=parseFloat(getComputedStyle(scroll).paddingLeft)*2;
-    const zoom=$('zoom').value;
-    scale=zoom==='fit'?Math.max(.1,Math.min((scroll.clientWidth-padding)/WIDTH,(scroll.clientHeight-padding)/HEIGHT,1)):Number(zoom);
+    const zoom=presenting&&!presentationTools?'fit':$('zoom').value;
+    scale=zoom==='fit'?Math.max(.02,Math.min((scroll.clientWidth-padding)/WIDTH,(scroll.clientHeight-padding)/HEIGHT,presenting?Infinity:1)):Number(zoom);
     const w=WIDTH*scale,h=HEIGHT*scale;$('boardWrap').style.width=`${w}px`;$('boardWrap').style.height=`${h}px`;board.style.width=`${w}px`;board.style.height=`${h}px`;
     positionEditor();render();
   }
@@ -662,6 +782,7 @@ dialog h2 { font-family: 'Bebas Neue', 'Arial Narrow', sans-serif; font-size: 32
   }
   $('clearBoard').addEventListener('click',async()=>{if(!objects.length)return;if(await confirmAction('Clear the whiteboard?','You can undo this if you change your mind.')){const before=snapshot();objects=[];selected.clear();commit(before);}});
   document.addEventListener('keydown',e=>{
+    if(presenting&&!presentationTools)return;
     if(e.target.closest('input,textarea,select,button,summary,dialog') || $('confirmDialog').open)return;
     const mod=e.ctrlKey||e.metaKey,key=e.key.toLowerCase();
     if(mod&&key==='z'){e.preventDefault();undo(e.shiftKey);return;}
