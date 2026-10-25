@@ -852,6 +852,7 @@ button.btn-link:hover {
 }
 .season-teaser-text .section-eyebrow { color: var(--teal-light); }
 .season-teaser-text .section-title { color: var(--white); }
+.season-teaser-text .section-title { font-family: 'Space Mono', monospace; }
 .season-teaser-text p { color: rgba(255,255,255,0.6); margin-bottom: 28px; }
 .robot-placeholder {
   display: flex; flex-direction: column; align-items: center;
