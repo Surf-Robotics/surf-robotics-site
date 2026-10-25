@@ -2856,3 +2856,7 @@ button.btn-ghost:hover {
   border-color: var(--sand) !important;
   color: var(--sand) !important;
 }
+
+.season-teaser-text .section-title {
+  font-family: 'Space Mono', monospace !important;
+}
