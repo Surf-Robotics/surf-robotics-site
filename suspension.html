@@ -10,5 +10,36 @@
         <label for="names">Suspend someone:</label>
         <input type="text" id="names" name="names" placeholder="Suspend someone…">
     </div>
+      <p id="my-paragraph"></p>
+      <form id="messageForm">
+        <label for="messageInput">Suspend someone:</label>
+        <input type="text" id="messageInput" placeholder="Suspend someone…" required>
+      </form>
+    
+      <script>
+        const form = document.getElementById('messageForm');
+        const input = document.getElementById('messageInput');
+    
+        // 1. Listen for the form submission
+        form.addEventListener('submit', function(event) {
+          // Prevent the browser from refreshing the page
+          event.preventDefault(); 
+          
+          // 2. Grab the text value
+          const userText = input.value.trim();
+          
+          if (userText !== "") {
+            // 3. Store the text (saving to browser's LocalStorage as an example)
+            localStorage.setItem('savedText', userText);
+
+            const targetParagraph = document.getElementById("my-paragraph");
+
+            targetParagraph.textContent = userText,"\n";
+            
+            // 4. Clear the text box for the next entry
+            input.value = '';
+          }
+        });
+      </script>
 </body>
 </html>
