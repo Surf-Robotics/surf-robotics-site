@@ -6,10 +6,6 @@
 </head>
 <body>
     <h1>List of Suspended Members of FIRST® Tech Challenge Team Surf #37182</h1>
-    <div>
-        <label for="names">Suspend someone:</label>
-        <input type="text" id="names" name="names" placeholder="Suspend someone…">
-    </div>
       <p id="my-paragraph"></p>
       <form id="messageForm">
         <label for="messageInput">Suspend someone:</label>
@@ -34,7 +30,7 @@
 
             const targetParagraph = document.getElementById("my-paragraph");
 
-            targetParagraph.textContent += "<br>", userText;
+            targetParagraph.innerHTML += userText + "<br>";
             
             // 4. Clear the text box for the next entry
             input.value = '';
