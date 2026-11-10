@@ -127,8 +127,8 @@
   <script src="main.js"></script>
   <script>
     // Add your Gemini API key here. A key in this file is visible to everyone who visits the page.
-    const GEMINI_API_KEY = "AQ.Ab8RN6JV5Yp27Ewt3_Q3MoAaI5F1AXM6kS2JvFIZp5oTlRN85w";
-    const GEMINI_MODEL = "deep-research-pro-preview";
+    const GEMINI_API_KEY = "PASTE_YOUR_GEMINI_API_KEY_HERE";
+    const GEMINI_MODEL = "gemini-3.5-flash-lite";
 
     const form = document.getElementById("chatForm");
     const promptInput = document.getElementById("prompt");
@@ -169,7 +169,7 @@
       if (sending) return;
       const question = promptInput.value.trim();
       if (!question) return;
-      if (!GEMINI_API_KEY.trim() || GEMINI_API_KEY === "AQ.Ab8RN6KhHoC04XThuCVoJB95jDntvZj1N_MlPkoJHZtMuOK0DQ") {
+      if (!GEMINI_API_KEY.trim() || GEMINI_API_KEY === "PASTE_YOUR_GEMINI_API_KEY_HERE") {
         status.textContent = "Add your Gemini API key to GEMINI_API_KEY in ai.html first.";
         return;
       }
@@ -192,7 +192,7 @@
           },
           body: JSON.stringify({
             systemInstruction: {
-              parts: [{ text: "I am Surf AI, a friendly assistant on the Surf Robotics FTC team website. Help with robotics, coding, outreach, and general questions. Be clear and concise. The only team facts you know are that Surf Robotics is FTC Team 37182, founded in 2026 in coastal California. Do not invent other team facts." }]
+              parts: [{ text: "You are Surf AI, a friendly assistant on the Surf Robotics FTC team website. Help with robotics, coding, outreach, and general questions. Be clear and concise. The only team facts you know are that Surf Robotics is FTC Team 37182, founded in 2026 in coastal California. Do not invent other team facts." }]
             },
             contents: [...conversation.slice(-12), { role: "user", parts: [{ text: question }] }],
             generationConfig: { maxOutputTokens: 1200 }
