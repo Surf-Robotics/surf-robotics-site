@@ -14,6 +14,67 @@
     href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:ital,wght@0,300;0,400;0,500;0,700;1,300&family=Space+Mono:wght@400;700&display=swap"
     rel="stylesheet"
   >
+
+  <style>
+    /* Donation Banner Styles */
+    .donation-banner {
+      background-color: #0d2b36;
+      color: #ffffff;
+      padding: 12px 20px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 16px;
+      flex-wrap: wrap;
+      font-family: 'DM Sans', sans-serif;
+      font-size: 0.95rem;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.15);
+      position: relative;
+      z-index: 999;
+    }
+
+    .donation-banner p {
+      margin: 0;
+    }
+
+    .donation-actions {
+      display: flex;
+      gap: 10px;
+      align-items: center;
+    }
+
+    .btn-donate {
+      background-color: #20b2aa;
+      color: #ffffff;
+      text-decoration: none;
+      padding: 6px 14px;
+      border-radius: 6px;
+      font-weight: 700;
+      font-size: 0.85rem;
+      transition: background-color 0.2s ease;
+    }
+
+    .btn-donate:hover {
+      background-color: #19948d;
+    }
+
+    .btn-later {
+      background: transparent;
+      color: #b0c4cc;
+      border: 1px solid rgba(255, 255, 255, 0.3);
+      padding: 6px 12px;
+      border-radius: 6px;
+      font-family: 'DM Sans', sans-serif;
+      font-size: 0.85rem;
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+
+    .btn-later:hover {
+      color: #ffffff;
+      border-color: #ffffff;
+    }
+  </style>
 </head>
 
 <body class="page-home">
@@ -42,10 +103,28 @@
       <li><a href="outreach" title="Click me.">Outreach & Sponsors</a></li>
       <li><a href="robot" title="Click me.">Robot</a></li>
       <li><a href="blog" title="Click me.">Blog</a></li>
-      <li><a href="team" title = "Click me.">Members Only</a></li>
-      <li><a href="AI" title = "New!">AI</a></li>
+      <li><a href="team" title="Click me.">Members Only</a></li>
+      <li><a href="AI" title="New!">AI</a></li>
     </ul>
   </nav>
+
+  <!-- DONATION BANNER -->
+  <div class="donation-banner" id="donationBanner" role="region" aria-label="Donation request">
+    <p>Support FTC Team 37182! Help fund our robot parts, tools, and competition fees.</p>
+    <div class="donation-actions">
+      <a 
+        href="https://hcb.hackclub.com/donations/start/surf-ftc-team" 
+        target="_blank" 
+        rel="noopener noreferrer" 
+        class="btn-donate"
+      >
+        Donate Now
+      </a>
+      <button type="button" class="btn-later" id="dismissBannerBtn">
+        Maybe later
+      </button>
+    </div>
+  </div>
 
   <!-- HERO -->
   <header class="hero">
@@ -103,31 +182,31 @@
 
   <!-- STATS BAR -->
   <!-- ROBOT MEDIA -->
-<section class="home-media">
-  <div class="container">
+  <section class="home-media">
+    <div class="container">
 
-    <div class="media-item">
-      <video
-      class="responsive-media"
-      controls
-      loop
-      playsinline
->
-        <source src="robot.mp4" type="video/mp4">
-        Your browser does not support the video tag.
-      </video>
+      <div class="media-item">
+        <video
+          class="responsive-media"
+          controls
+          loop
+          playsinline
+        >
+          <source src="robot.mp4" type="video/mp4">
+          Your browser does not support the video tag.
+        </video>
+      </div>
+
+      <div class="media-item">
+        <img
+          class="responsive-media"
+          src="IMG_6177.jpg"
+          alt="FIRST Tech Challenge"
+        >
+      </div>
+
     </div>
-
-    <div class="media-item">
-      <img
-        class="responsive-media"
-        src="IMG_6177.jpg"
-        alt="FIRST Tech Challenge"
-      >
-    </div>
-
-  </div>
-</section>
+  </section>
 
   <section class="stats-bar">
     <div class="stat">
@@ -215,17 +294,10 @@
         </h2>
 
         <p>Everyone is hard at work. Stay tuned for updates!</p>
-
-
-
-          
-        </a>
       </div>
 
       <p class="robot-caption"></p>
 
-    </div>
-    </div>
     </div>
   </section>
 
@@ -244,7 +316,7 @@
             <iframe 
               width="560" 
               height="315" 
-              src="https://www.youtube.com/watch?v=sUH3z5a5S9I&t=1s" 
+              src="https://www.youtube.com/embed/sUH3z5a5S9I?start=1" 
               title="YouTube video player" 
               frameborder="0" 
               allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
@@ -291,6 +363,20 @@
   </footer>
 
   <script src="main.js"></script>
+  <script>
+    // Hide donation banner on click and remember during session
+    const donationBanner = document.getElementById('donationBanner');
+    const dismissBtn = document.getElementById('dismissBannerBtn');
+
+    if (sessionStorage.getItem('hideDonationBanner') === 'true') {
+      donationBanner.style.display = 'none';
+    }
+
+    dismissBtn.addEventListener('click', () => {
+      donationBanner.style.display = 'none';
+      sessionStorage.setItem('hideDonationBanner', 'true');
+    });
+  </script>
 
 </body>
 </html>
