@@ -1287,6 +1287,12 @@ button.btn-link:hover {
   display: grid; grid-template-columns: repeat(2, 1fr);
   gap: 16px;
 }
+.outreach-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-top: 8px;
+}
 .o-stat {
   padding: 24px;
   background: var(--teal-pale);
